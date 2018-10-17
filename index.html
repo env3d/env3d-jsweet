@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>ACE in Action</title>
+        <style type="text/css" media="screen">
+         :root {
+             --height: 100%;
+         }
+         
+         body {
+             margin:0;
+             padding:0;
+         }
+         
+         section {
+             position: fixed;
+             left: 0;
+             top: 0;
+             width: 100%;
+             height: var(--height);
+             display: grid;
+             grid-template-columns: 50% 50%;
+             grid-template-rows: 5% auto;
+             
+         }
+
+         #status {
+             padding-left: 5%;
+             align-self: center;             
+             grid-area: 1/1/1/2;
+         }
+         
+         #editor {
+             grid-area: 2/1;
+             top: 0;
+             right: 0;
+             bottom: 0;
+             left: 0;
+         }
+         
+         iframe {
+             grid-area: 2/2;
+             width: 100%;
+             height: var(--height);
+             margin: 0;
+             padding: 0;
+             border-style: none;
+         }
+
+         #run {
+             position: fixed;
+             top: 5%;
+             right: 50%;
+             z-index: 999;
+         }
+        </style>
+    </head>
+    <body>
+        <button id='run'>Run >></button>
+
+        
+        <section>
+            <div id="status">ready</div>            
+            <div id="editor"></div>
+            <iframe src='env3d.html'></iframe>
+        </section>
+
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.1/ace.js'
+                type="text/javascript" charset="utf-8"></script>
+        
+        <script src='transpile.js'></script>
+        <script src='index.js'></script>
+    </body>
+</html>
