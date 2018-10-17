@@ -18,7 +18,7 @@ function transpile(javaCode) {
         fetch('https://api.operatoroverload.com/jsweet/transpile',
               {
                   method: 'POST',
-                  mode: 'cors',
+                  mode: 'no-cors',
                   cache: 'no-cache',
                   body: formData
               }
