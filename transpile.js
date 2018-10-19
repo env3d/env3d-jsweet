@@ -15,8 +15,9 @@ function transpile(javaCode) {
     formData.append('tid', uniqueId);
     
     return new Promise( (resolve, reject) => {
-        //fetch('https://api.operatoroverload.com/jsweet/transpile',
-        fetch('https://transpile.c3d.io/transpile',
+        let transpile_host = 'https://api.operatoroverload.com/jsweet/transpile';
+        //let transpile_host = 'http://transpile.c3d.io/transpile';
+        fetch(transpile_host,
               {
                   method: 'POST',
                   mode: 'cors',
