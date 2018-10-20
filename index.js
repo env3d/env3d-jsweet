@@ -149,6 +149,12 @@ function initSessions() {
     }
 }
 
+window.addEventListener('keydown', function(evt) {
+    if (evt.keyCode == 13 && evt.metaKey) {
+        sendToTranspile();
+    }    
+});
+
 window.addEventListener('load', function(evt) {
 
     initSessions();
@@ -164,6 +170,9 @@ window.addEventListener('load', function(evt) {
         }
         localStorage.setItem('code', JSON.stringify(code));
     });
+
+    // Experimental: enable transpile as changes are made?
+    // transpileAsYouType(3000);    
     
     document.querySelector('.addJavaFile').addEventListener('click', () => {
         let fileName = prompt('What is the name of your class?');
@@ -179,10 +188,6 @@ window.addEventListener('load', function(evt) {
         });
     });
 });
-
-
-// Experimental: enable transpile as changes are made?
-// transpileAsYouType(3000);
 
 
 
