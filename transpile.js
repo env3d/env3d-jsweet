@@ -11,10 +11,11 @@ function transpile(javaCode) {
     
     let formData = new FormData();
     formData.append('javaCode', javaCode);
-    formData.append('tsOut', true);
+    formData.append('tsout', true);
     formData.append('tid', uniqueId);
     
     return new Promise( (resolve, reject) => {
+        //let transpile_host = 'http://localhost:8580/transpile';
         //let transpile_host = 'https://api.operatoroverload.com/jsweet/transpile';
         let transpile_host = 'https://transpile.c3d.io/transpile';
         fetch(transpile_host,
@@ -32,6 +33,7 @@ function transpile(javaCode) {
             }
         }).then( json => {
             console.log(json);
+            json.jsout = ts.transpile(json.tsout);
             if (json.errors && json.errors.length > 0) {
                 reject(json.errors);
             } else {
