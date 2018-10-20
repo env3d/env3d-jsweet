@@ -63,7 +63,11 @@ f.addEventListener('load', () => {
     let scriptElement = document.createElement('script');
 
     let launchCode = ['env3d.Env.baseAssetsUrl = "https://env3d.github.io/env3d-js/dist/";',
-                      'let game = new Game();',
+                      'var game = new Game();',
+                      'parent.window["game"] = game;',
+                      // This following line is a hack to add some basic lighting
+                      //    -- really need to rethink this technically as well as pedagogically
+                      'game.env && game.env.scene && game.env.scene.add(new THREE.HemisphereLight( 0x7f7f7f, 0x000000, 2 ));',
                       'game.start();',
                       'window.setInterval(game.loop.bind(game), 32);'].join('\n');
     
