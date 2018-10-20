@@ -2,6 +2,13 @@
     <head>
         <script src='https://beta.c3d.io/js/inflate.min.js'></script>        
         <script src='https://beta.c3d.io/js/env3d.js'></script>
+        <script>
+         let info = console.info;
+         console.info = function(msg) {
+             info(msg);
+             parent.window.postMessage(msg, "*");
+         }
+        </script>
         <style>
          * {
              margin: 0;

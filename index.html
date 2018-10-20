@@ -2,6 +2,9 @@
 <html lang="en">
     <head>
         <title>env3d-java in the browser!</title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+              integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+              crossorigin="anonymous"> 
         <style type="text/css" media="screen">
          :root {
              --height: 100%;
@@ -10,9 +13,10 @@
          body {
              margin:0;
              padding:0;
+             background-color: #777;
          }
          
-         section {
+         main {
              position: fixed;
              left: 0;
              top: 0;
@@ -20,18 +24,49 @@
              height: var(--height);
              display: grid;
              grid-template-columns: 50% 50%;
-             grid-template-rows: 5% auto;
-             
+             grid-template-rows: 5% 5% auto 10%;
+             grid-template-areas:
+             "status status"
+             "tabs display"
+             "editor display"
+             "console console";
          }
 
          #status {
+             margin: 0;
              padding-left: 5%;
-             align-self: center;             
-             grid-area: 1/1/1/2;
+             align-self: center;
+             grid-area: status;
+         }
+
+         #tabs {
+             overflow: hidden;
+             grid-area: tabs;
+             display: flex;
+             line-height: 100%;
+         }
+
+         #tabs > * {
+             margin: 0 4px 0 0;
+             padding: 50px 2px;
+             cursor: default;
+             text-align: center;
+             align-self: center;
+             color: #eee;
+             background-color: #222;
+         }
+         
+         #tabs > *:hover {             
+             color: #fff;
+             background-color: #444;
+         }
+
+         .file.selected {
+             font-weight: bold;
          }
          
          #editor {
-             grid-area: 2/1;
+             grid-area: editor;
              top: 0;
              right: 0;
              bottom: 0;
@@ -39,7 +74,7 @@
          }
          
          iframe {
-             grid-area: 2/2;
+             grid-area: display;
              width: 100%;
              height: var(--height);
              margin: 0;
@@ -47,23 +82,37 @@
              border-style: none;
          }
 
+         #console {
+             grid-area: console;
+             margin: 0;
+             padding: 5px;
+             overflow: scroll;
+             
+         }
+
          #run {
              position: fixed;
              top: 5%;
              right: 50%;
              z-index: 999;
+             font-size: 2em;
          }
+
         </style>
     </head>
     <body>
-        <button id='run'>Run >></button>
+        <button id='run'><i class="fas fa-running"></i> <i class="fas fa-arrow-right"></i></button>
 
         
-        <section>
-            <div id="status">ready</div>            
-            <div id="editor"></div>
+        <main>
+            <pre id="status">ready</pre>
+            <section id="tabs">
+                <div class='addJavaFile'>+</div>
+            </section>
+            <section id="editor"></section>
             <iframe src='env3d.html'></iframe>
-        </section>
+            <pre id="console"></pre>
+        </main>
 
         <script src='https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.1/ace.js'
                 type="text/javascript" charset="utf-8"></script>
