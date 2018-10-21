@@ -6,9 +6,9 @@ editor.session.setMode("ace/mode/java");
 if (localStorage && (!localStorage.getItem('code') || localStorage.getItem('code').length == 0)) {
     let code = {
         'Ball.java': [`public class Ball {`,
-                      `    private float x = 5;`,
-                      `    private float y = 5;`,
-                      `    private float z = 5;`,
+                      `    private double x = 5;`,
+                      `    private double y = 5;`,
+                      `    private double z = 5;`,
                       `    private String texture = "textures/doty.png";`,
                       `}`].join('\n'),
         'Game.java' : [`import env3d.Env;`,
