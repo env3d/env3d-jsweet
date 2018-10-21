@@ -15,10 +15,12 @@ function transpile(javaCode) {
     formData.append('tid', uniqueId);
     
     return new Promise( (resolve, reject) => {
-        //let transpile_host = 'http://localhost:8580/transpile';
-        //let transpile_host = 'https://api.operatoroverload.com/jsweet/transpile';
-        let transpile_host = 'https://transpile.c3d.io/transpile';
-        fetch(transpile_host,
+        let transpile_host = {
+            'test': 'http://localhost:8580/transpile',
+            'staging': 'https://api.operatoroverload.com/jsweet/transpile',
+            'production': 'https://transpile.c3d.io/transpile'
+        };
+        fetch(transpile_host.test,
               {
                   method: 'POST',
                   mode: 'cors',
@@ -33,7 +35,9 @@ function transpile(javaCode) {
             }
         }).then( json => {
             console.log(json);
-            json.jsout = ts.transpile(json.tsout);
+            let opts = {module: 1, target: 1, noLib: true,
+                       noResolve: true, suppressOutputPathCheck: true}
+            json.jsout = ts.transpile(json.tsout, opts);
             if (json.errors && json.errors.length > 0) {
                 reject(json.errors);
             } else {

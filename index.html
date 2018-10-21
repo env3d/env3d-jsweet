@@ -117,7 +117,21 @@
         <script src='https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.1/ace.js'
                 type="text/javascript" charset="utf-8"></script>
 
-        <script src="https://rawgit.com/Microsoft/TypeScript/master/lib/typescriptServices.js"></script> 
+        <!--
+             transpiler service comes from the typescript playground
+             https://www.typescriptlang.org/play/index.html
+
+             It's not documented how to actually do this in the browser,
+             so have to look at lots of source code. At the end,
+             found out by trail and error that including the
+             transcriptServices.js will inject a ts object into the
+             window.  You then have to call ts.transpile with the correct
+             options to emit the proper results.
+
+             partially based on this blog post:
+             http://vanilla-js.blogspot.com/2016/02/how-to-compile-typescript-in-browser.html 
+           -->
+        <script src='typescriptServices.js'></script>
         <script src='transpile.js'></script>
         <script src='index.js'></script>
     </body>

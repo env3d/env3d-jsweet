@@ -61,6 +61,8 @@ function sendToTranspile() {
 }
 
 var jsCode;
+var tsCode;
+
 let f = document.querySelector('iframe');
 let status = document.getElementById('status');
 
