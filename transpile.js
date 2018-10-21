@@ -20,7 +20,7 @@ function transpile(javaCode) {
             'staging': 'https://api.operatoroverload.com/jsweet/transpile',
             'production': 'https://transpile.c3d.io/transpile'
         };
-        fetch(transpile_host.test,
+        fetch(transpile_host.production,
               {
                   method: 'POST',
                   mode: 'cors',
