@@ -25,8 +25,6 @@ if (localStorage && (!localStorage.getItem('code') || localStorage.getItem('code
     
     localStorage.setItem('code', JSON.stringify(code));
 }
-        
-
 
 function sendToTranspile() {    
 
@@ -102,7 +100,6 @@ f.addEventListener('load', () => {
     } else {
         code = jsCode + launchCode;
     }
-  
     
     scriptElement.innerHTML = code;
 
