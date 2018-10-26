@@ -28,23 +28,18 @@ if (localStorage && (!localStorage.getItem('code') || localStorage.getItem('code
 
 function sendToTranspile() {    
 
-    // combile all sessions into one
-    let combinedCode = Object.values(sessions).reduce( (code, sess) => code + sess.getDocument().getValue()+'\n', '');
-    let imports = [];
-    let filteredCode = combinedCode.split('\n').filter( line => {
-        if (line.startsWith('import')) {
-            imports.push(line);
-            return '';
+    let finalCode = Object.keys(sessions).map( fileName => {
+        return {
+            name: fileName,
+            code: sessions[fileName].getDocument().getValue()
         }
-        return line;
     });
-        
-    if (filteredCode.length == 0) return;
-    
+    finalCode = JSON.stringify(finalCode);    
+
     document.getElementById('run').disabled = true;    
-    console.log('transpile: started', imports, filteredCode);
+    console.log('transpile: started', finalCode);
     status.innerHTML = 'transpiling...';
-    transpile(imports.join('\n')+filteredCode.join('\n')).then( js => {
+    transpile(finalCode).then( js => {
         jsCode = js;
         f.contentWindow.location.reload();
         console.log('transpile: finished');
