@@ -173,7 +173,7 @@ window.addEventListener('load', function(evt) {
         localStorage.setItem('code', JSON.stringify(code));
 
         // tell user they need to recompile their code
-        status.innerHTML = 'source changed, click run to see changes in 3D window';
+        status.innerHTML = 'source changed, click run (command-enter) to see changes in 3D window';
         run.style.animationName = 'run-required';
     });
 
