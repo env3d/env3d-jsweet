@@ -1,7 +1,7 @@
 function uuidv4() {
-  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-  )
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    )
 }
 
 var uniqueId = uuidv4();
@@ -20,7 +20,9 @@ function transpile(javaCode) {
             'staging': 'https://api.operatoroverload.com/jsweet/transpile',
             'production': 'https://transpile.c3d.io/transpile'
         };
-        fetch(transpile_host.production,
+        let host = '';
+        document.location.href.startsWith('http://localhost') ? host = 'test' : host = 'production';
+        fetch(transpile_host[host],
               {
                   method: 'POST',
                   mode: 'cors',
@@ -43,6 +45,12 @@ function transpile(javaCode) {
             } else {
                 resolve(json.jsout);
             }
-        })
+        }).catch(ex => {
+            reject("Error with transpiling");
+        });
     });
 }
+
+    
+    
+    

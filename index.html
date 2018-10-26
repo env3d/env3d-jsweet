@@ -32,11 +32,18 @@
              "console console";
          }
 
-         #status {
-             margin: 0;
-             padding-left: 5%;
-             align-self: center;
+         #header {
              grid-area: status;
+             align-self: center;
+             margin: 0;
+             padding-left: 1%;
+             font-family: monospace;
+         }
+
+         #header a {
+             border-radius: 10%;
+             background-color: black;
+             color: white;
          }
 
          #tabs {
@@ -110,7 +117,10 @@
 
         
         <main>
-            <pre id="status">ready</pre>
+            <section id="header">
+                <a target='_blank' href='javadoc/env3d/Env.html'>Read the Javadoc</a>
+                <span id="status">ready</span>
+            </section>
             <section id="tabs">
                 <div class='addJavaFile'>+</div>
             </section>
