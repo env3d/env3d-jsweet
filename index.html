@@ -92,6 +92,7 @@
              margin: 0;
              padding: 0;
              border-style: none;
+             transition-duration: 1s;
          }
 
          #console {
@@ -108,6 +109,19 @@
              right: 50%;
              z-index: 999;
              font-size: 2em;
+             animation-duration: 1s;
+         }
+
+         @keyframes run-required {
+             0% {
+                 transform: rotate(20deg);
+             }
+             50% {
+                 transform: rotate(-20deg);
+             }
+             100% {
+                 transform: rotate(0deg);                 
+             }
          }
 
         </style>

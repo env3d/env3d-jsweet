@@ -48,14 +48,15 @@ function sendToTranspile() {
         jsCode = js;
         f.contentWindow.location.reload();
         console.log('transpile: finished');
-        status.innerHTML = 'ready';
         document.getElementById('run').disabled = false;
     }).catch( e => {
         console.log(e);
         alert(e);
-        status.innerHTML = 'ready';
         document.getElementById('run').disabled = false;        
-    });;    
+    }).finally( e => {
+        status.innerHTML = 'ready';
+        run.style.animationName = '';
+    });
 }
 
 var jsCode;
@@ -63,6 +64,7 @@ var tsCode;
 
 let f = document.querySelector('iframe');
 let status = document.getElementById('status');
+let runButton = document.getElementById('run');
 
 function transpileAsYouType(delay) {
     let editTimeout = null;
@@ -161,13 +163,18 @@ window.addEventListener('load', function(evt) {
     // Send to transpile when first load
     sendToTranspile();
 
-    // save file as we type
+
     editor.on('change', () => {
+        // save file as we type        
         let code = {};
         for (file in sessions) {
             code[file] = sessions[file].getDocument().getValue();
         }
         localStorage.setItem('code', JSON.stringify(code));
+
+        // tell user they need to recompile their code
+        status.innerHTML = 'source changed, click run to see changes in 3D window';
+        run.style.animationName = 'run-required';
     });
 
     // Experimental: enable transpile as changes are made?
