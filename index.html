@@ -112,6 +112,14 @@
              animation-duration: 1s;
          }
 
+         #makeApp {
+             position: fixed;
+             top: 5%;
+             right: 0;
+             z-index: 999;
+             font-size: 2em;
+         }
+
          @keyframes run-required {
              0% {
                  transform: rotate(20deg);
@@ -127,9 +135,11 @@
         </style>
     </head>
     <body>
-        <button id='run'><i class="fas fa-running"></i> <i class="fas fa-arrow-right"></i></button>
-
-        
+        <button id='run'>
+            <i class="fas fa-running"></i>
+            <i class="fas fa-arrow-right"></i>
+        </button>
+        <button id='makeApp'><i class="fas fa-mobile-alt"></i></button>
         <main>
             <section id="header">
                 <a target='_blank' href='javadoc/env3d/Env.html'>Read the Javadoc</a>

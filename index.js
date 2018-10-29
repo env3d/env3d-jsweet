@@ -73,23 +73,27 @@ function transpileAsYouType(delay) {
     });
 }
 
+
+
+const launchCode = ['env3d.Env.baseAssetsUrl = "https://env3d.github.io/env3d-js/dist/";',
+                    'var game = new Game();',
+                    'parent.window["game"] = game;',
+                    // This following line is a hack to add some basic lighting
+                    //    -- really need to rethink this technically as well as pedagogically
+                    'game.env && game.env.scene ',
+                    '         && game.env.scene.add(new THREE.HemisphereLight( 0x7f7f7f, 0x000000, 2 ));',
+                    'game.start();',
+                    'window.setInterval(game.loop.bind(game), 32);'].join('\n');
+
+const emptyCode = ['env3d.Env.baseAssetsUrl = "https://env3d.github.io/env3d-js/dist/";',
+                   'let env = new env3d.Env()',
+                   'env.start();'].join('\n');
+
 document.getElementById('run').addEventListener('click', sendToTranspile);
+document.getElementById('makeApp').addEventListener('click', makeApp);
 
 f.addEventListener('load', () => {
     let scriptElement = document.createElement('script');
-
-    let launchCode = ['env3d.Env.baseAssetsUrl = "https://env3d.github.io/env3d-js/dist/";',
-                      'var game = new Game();',
-                      'parent.window["game"] = game;',
-                      // This following line is a hack to add some basic lighting
-                      //    -- really need to rethink this technically as well as pedagogically
-                      'game.env && game.env.scene && game.env.scene.add(new THREE.HemisphereLight( 0x7f7f7f, 0x000000, 2 ));',
-                      'game.start();',
-                      'window.setInterval(game.loop.bind(game), 32);'].join('\n');
-    
-    let emptyCode = ['env3d.Env.baseAssetsUrl = "https://env3d.github.io/env3d-js/dist/";',
-                     'let env = new env3d.Env()',
-                     'env.start();'].join('\n');
 
     let code = ''
     if (!jsCode || jsCode.length == 0) {
@@ -190,6 +194,23 @@ window.addEventListener('load', function(evt) {
     });
 });
 
-
+// Experimental: Send to app making service 
+function makeApp() {
+    var host = {
+        test: 'http://192.168.0.24:3000/cordova',
+        production: 'https://transpile.c3d.io/cordova'
+    }
+    fetch(host.production, {
+        method: 'POST', body: jsCode + launchCode, headers: { 'Content-type': 'text/plain' }        
+    }).then( response => {        
+        return response.json();
+    }).then( json => {
+        console.log(json);
+        if (json.applink) {
+            window.open().document.location = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&`
+                                             +`data=${host.production}/${json.applink}`;
+        }
+    });
+}
 
 window['editor'] = editor;
