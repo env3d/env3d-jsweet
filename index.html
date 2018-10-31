@@ -62,7 +62,7 @@
              color: #eee;
              background-color: #222;
          }
-         
+
          #tabs > *:hover {             
              color: #fff;
              background-color: #444;
@@ -76,7 +76,7 @@
          .file.selected {
              font-weight: bold;
          }
-         
+                  
          #editor {
              grid-area: editor;
              top: 0;
@@ -113,6 +113,8 @@
          }
 
          #makeApp {
+             /* Disabling this button for now */
+             display: none;
              position: fixed;
              top: 5%;
              right: 0;
@@ -132,14 +134,63 @@
              }
          }
 
+         .hint {             
+             display: none;
+             position: absolute;
+
+             height: 1em;
+             right: 0;
+             bottom: -1em;
+             font-size: 0.5em;
+             background-color: rgb(200,200,200);
+             
+         }
+
+         button:hover .hint {
+             display: inline-block;
+         }
+
+         #files {             
+             box-sizing: border-box;
+             position: fixed;
+             width: 50%;
+             height: 80%;
+             left: 25%;
+             top: 5%;
+             padding: 5%;
+             font-size: 1.5em;
+             border-radius: 10%;
+             background-color: rgba(200,200,200,0.9);
+             z-index: 99999;
+             display: none;
+         }
+
+         #files * {
+             font-size: 1em;
+         }
+
+         #files .close {
+             position: absolute;
+             right: 5%;
+             top: 5%;
+         }
+
+         #files .delete {
+             margin: 0 2% 0;
+         }
+         
         </style>
     </head>
     <body>
         <button id='run'>
             <i class="fas fa-running"></i>
             <i class="fas fa-arrow-right"></i>
+            <div class="hint">Run code</div>            
         </button>
-        <button id='makeApp'><i class="fas fa-mobile-alt"></i></button>
+        <button id='makeApp'>
+            <i class="fas fa-mobile-alt"></i>
+            <div class="hint">Make an app from code</div>
+        </button>
         <main>
             <section id="header">
                 <a target='_blank' href='javadoc/env3d/Env.html'>Read the Javadoc</a>
@@ -152,6 +203,14 @@
             <iframe src='env3d.html'></iframe>
             <pre id="console"></pre>
         </main>
+        
+        <div id='files'>
+            <button class='close'>X</button>
+            <div>New class name:</div>
+            <input id='filename'> <button class='add'>Add</button>
+            <ul>
+            </ul>
+        </div>
 
         <script src='https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.1/ace.js'
                 type="text/javascript" charset="utf-8"></script>

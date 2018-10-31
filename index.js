@@ -127,12 +127,43 @@ function switchSession(tab) {
 
 function createNewTab(file, callback) {
     let tab = document.createElement('div');
+    tab.id = file;
     tab.classList.add('file');
     tab.innerHTML = file;
     tab.addEventListener('click', switchSession(tab));
     document.querySelector('#tabs').append(tab);
     switchSession(tab)();
     callback ? callback.call() : null;
+}
+
+function addFile(fileName) {
+    if (!fileName || fileName.length == 0) return;
+    !fileName.endsWith('.java') ? fileName += '.java' : null;
+    let className = fileName.slice(0, -5);
+    let session = new ace.EditSession('','ace/mode/java');
+    sessions[fileName] = session;
+    session.setValue(`public class ${className} {\n\n}`);
+    createNewTab(fileName, () => {
+        editor.gotoLine(2, 0);
+    });
+}
+
+function deleteFile(file) {
+    delete sessions[file];
+    document.getElementById('tabs')
+            .removeChild(document.getElementById(file));
+    saveFile();
+    let files = Object.keys(sessions);
+    editor.setSession(sessions[files[files.length-1]]);
+    document.getElementById(files[files.length-1]).classList.add('selected');
+}
+
+function saveFile() {
+    let code = {};
+    for (file in sessions) {
+        code[file] = sessions[file].getDocument().getValue();
+    }
+    localStorage.setItem('code', JSON.stringify(code));
 }
 
 var sessions = {};
@@ -165,12 +196,8 @@ window.addEventListener('load', function(evt) {
 
     editor.on('change', () => {
         // save file as we type        
-        let code = {};
-        for (file in sessions) {
-            code[file] = sessions[file].getDocument().getValue();
-        }
-        localStorage.setItem('code', JSON.stringify(code));
-
+        saveFile();
+        
         // tell user they need to recompile their code
         status.innerHTML = 'source changed, click run (command-enter) to see changes in 3D window';
         run.style.animationName = 'run-required';
@@ -178,20 +205,59 @@ window.addEventListener('load', function(evt) {
 
     // Experimental: enable transpile as changes are made?
     // transpileAsYouType(3000);    
+
+    function refreshFileList() {
+        let filesPanel = document.getElementById('files');
+        filesPanel.style.display = 'block';
+        
+        let fileListDiv = filesPanel.querySelector('ul');
+        fileListDiv.innerHTML = '';
+        
+        Object.keys(sessions).forEach( sess => {
+            let div = document.createElement('li');
+            let deleteButton = document.createElement('button');
+            deleteButton.innerHTML = 'delete';
+            deleteButton.classList.add('delete');
+            deleteButton.addEventListener('click', (evt) => {
+                if (confirm(`Are you sure you want to delete ${sess}?`)) {
+                    deleteFile(sess);
+                }
+                
+                document.getElementById('files').style.display = 'none';
+            });
+            
+            div.innerHTML = sess;
+            div.append(deleteButton);            
+            
+            fileListDiv.append(div);
+        });
+
+        document.querySelector('#files .delete')
+    }
     
     document.querySelector('.addJavaFile').addEventListener('click', () => {
-        let fileName = prompt('What is the name of your class?');
-        if (!fileName || fileName.length == 0) return;
-        
-        !fileName.endsWith('.java') ? fileName += '.java' : null;
-        let className = fileName.slice(0, -5);
-        let session = new ace.EditSession('','ace/mode/java');
-        sessions[fileName] = session;
-        session.setValue(`public class ${className} {\n\n}`);
-        createNewTab(fileName, () => {
-            editor.gotoLine(2, 0);
-        });
+        refreshFileList();
+        document.getElementById('filename').focus();
     });
+    
+    document.querySelector('#files .close').addEventListener('click', () => {
+        document.getElementById('files').style.display = 'none';
+    });
+
+    document.querySelector('#files .add').addEventListener('click', () => {        
+        addFile(document.getElementById('filename').value);
+        document.getElementById('filename').value;
+        document.getElementById('files').style.display = 'none';        
+    });
+
+    document.querySelector('#filename').addEventListener('keyup', evt => {
+        if (evt.key == 'Enter') {
+            addFile(evt.target.value);
+            evt.target.value = '';
+            document.getElementById('files').style.display = 'none';
+        }
+    });
+
 });
 
 // Experimental: Send to app making service 
