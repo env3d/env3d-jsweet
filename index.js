@@ -172,7 +172,7 @@ function initSessions() {
     let code = JSON.parse(localStorage.getItem('code'));
     
     for (file in code) {
-        sessions[file] = new ace.EditSession(code[file], 'ace/mode/java');
+        sessions[file] = ace.createEditSession(code[file], 'ace/mode/java');
     }
     
     for (file in sessions) {
