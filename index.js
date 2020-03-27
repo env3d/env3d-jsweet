@@ -191,7 +191,7 @@ function shareCode() {
     const shareURL = window.location.origin
 		   + window.location.pathname
 		   + '?code='
-		   + encodeURIComponent(btoa(localStorage.code));
+		   + btoa(localStorage.code).replace(/\+/g,'.').replace(/\=/g,'-').replace(/\//g,'_');
 
     navigator.clipboard.writeText(shareURL).then( () => {
 	alert('Sharable URL copied to clipboard');	
@@ -207,7 +207,7 @@ window.addEventListener('load', function(evt) {
     if (inputCode) {
 	// need to decode the base64 url	
 	console.log(inputCode);
-	localStorage.setItem('code', atob(decodeURIComponent(inputCode)));
+	localStorage.setItem('code', atob(inputCode.replace(/\./g,'+').replace(/-/g,'=').replace(/_/g,'/')));
     }    
   
     initSessions();
