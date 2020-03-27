@@ -111,6 +111,15 @@
              font-size: 2em;
              animation-duration: 1s;
          }
+	 
+         #share {
+             position: fixed;
+             top: 5%;
+             right: 45%;
+             z-index: 999;
+             font-size: 2em;
+             animation-duration: 1s;
+         }
 
          #makeApp {
              /* Disabling this button for now */
@@ -182,6 +191,10 @@
         </style>
     </head>
     <body>
+        <button id='share'>
+            <i class="fas fa-share"></i>
+            <div class="hint">Share code</div>            
+        </button>      
         <button id='run'>
             <i class="fas fa-running"></i>
             <i class="fas fa-arrow-right"></i>

@@ -186,13 +186,34 @@ window.addEventListener('keydown', function(evt) {
     }    
 });
 
-window.addEventListener('load', function(evt) {
+document.getElementById('share').addEventListener('click', shareCode);
+function shareCode() {
+    const shareURL = window.location.origin
+		   + window.location.pathname
+		   + '?code='
+		   + encodeURIComponent(btoa(localStorage.code));
 
+    navigator.clipboard.writeText(shareURL).then( () => {
+	alert('Sharable URL copied to clipboard');	
+    });
+}
+
+window.addEventListener('load', function(evt) {
+    
+    // Check if the files are included in the URL
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const inputCode = urlParams.get("code");
+    if (inputCode) {
+	// need to decode the base64 url	
+	console.log(inputCode);
+	localStorage.setItem('code', atob(decodeURIComponent(inputCode)));
+    }    
+  
     initSessions();
 
     // Send to transpile when first load
     sendToTranspile();
-
 
     editor.on('change', () => {
         // save file as we type        
