@@ -275,9 +275,24 @@ function shareCode() {
         + window.location.pathname
         + '?code='
         + btoa(localStorage.code).replace(/\+/g, '.').replace(/\=/g, '-').replace(/\//g, '_');
+    
+    var response = $.get('https://share.c3d.io/api.php', {
+        action: "shorturl",
+        format: "json",
+        url: shareURL
+    }, function(data) {
+        // callback function that will deal with the server response
+        // now do something with the data, for instance show new short URL:
+        navigator.clipboard.writeText(data.shorturl).then(() => {
+            alert(`Sharable URL ${data.shorturl} copied to clipboard`);
+        });
+    });
 
-    navigator.clipboard.writeText(shareURL).then(() => {
-        alert('Sharable URL copied to clipboard');
+    // just in case the shortener is not working
+    response.fail( () => {
+        navigator.clipboard.writeText(shareURL).then(() => {
+            alert('Sharable URL copied to clipboard');
+        });        
     });
 }
 
@@ -289,8 +304,10 @@ window.addEventListener('load', function (evt) {
     const inputCode = urlParams.get("code");
     if (inputCode) {
         // need to decode the base64 url	
-        console.log(inputCode);
+        // console.log(inputCode);
         localStorage.setItem('code', atob(inputCode.replace(/\./g, '+').replace(/-/g, '=').replace(/_/g, '/')));
+	// strip the code parameter from the url
+	history.pushState(null, "", window.location.origin+window.location.pathname);
     }
 
     initSessions();
