@@ -177,12 +177,8 @@ f.addEventListener('load', () => {
     addLightAfterTranspile();
 });
 
-//Temp Fix to add lighting and floor
+//Temp Fix to add lighting 
 function addLightAfterTranspile() {
-
-    setTimeout(function () {
-        window.game.env.setTerrain('textures/floor/snow1.png');
-    }, 1000);
 
     setTimeout(function () {
         window.game.env.scene.add(new f.contentWindow.THREE.HemisphereLight(0x7f7f7f, 0x000000, 4)
