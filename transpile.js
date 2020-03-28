@@ -8,7 +8,6 @@ var uniqueId = uuidv4();
 
 // Send code to transpile
 function transpile(javaCode) {
-    
     let formData = new FormData();
     formData.append('javaCode', javaCode);
     formData.append('tsout', true);
@@ -36,7 +35,7 @@ function transpile(javaCode) {
                 reject(response);
             }
         }).then( json => {
-            console.log(json);
+            //console.log(json);
             let opts = {module: 1, target: 1, noLib: true,
                        noResolve: true, suppressOutputPathCheck: true}
             json.jsout = ts.transpile(json.tsout, opts);

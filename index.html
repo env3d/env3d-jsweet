@@ -1,238 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>env3d-java in the browser!</title>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
-              integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
-              crossorigin="anonymous"> 
-        <style type="text/css" media="screen">
-         :root {
-             --height: 100%;
-         }
-         
-         body {
-             margin:0;
-             padding:0;
-             background-color: #777;
-         }
-         
-         main {
-             position: fixed;
-             left: 0;
-             top: 0;
-             width: 100%;
-             height: var(--height);
-             display: grid;
-             grid-template-columns: 50% 50%;
-             grid-template-rows: 5% 5% auto 10%;
-             grid-template-areas:
-             "status status"
-             "tabs display"
-             "editor display"
-             "console console";
-         }
 
-         #header {
-             grid-area: status;
-             align-self: center;
-             margin: 0;
-             padding-left: 1%;
-             font-family: monospace;
-         }
+<head>
+    <title>c3d Java</title>
+    <link rel="icon" href="images/logoFav.jpg" type="image/gif">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+        integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    
+</head>
 
-         #header a {
-             border-radius: 10%;
-             background-color: black;
-             color: white;
-         }
+<body onload="consoleToggle();">
+    
+    <button id="consoleToggle" title="Console" onclick="consoleToggle()">
+        <span style="margin-left: 10%;">
+            <i id="consoleArrows" style="font-size:24px; color: white;" class="fas"></i></span>
+    </button>
+    <button id="run" title="Execute code">
+        <i class="fas fa-play"></i>
+        <span style="margin-left: 10%;">Run</span>
+    </button>
+    <div id="loader"></div>
+    <button id="makeApp">
+        <i class="fas fa-mobile-alt"></i>
+        <div class="hint">Make an app from code</div>
+    </button>
 
-         #tabs {
-             overflow: hidden;
-             grid-area: tabs;
-             display: flex;
-             line-height: 100%;
-         }
-
-         #tabs > * {
-             margin: 0 4px 0 0;
-             padding: 50px 2px;
-             cursor: default;
-             text-align: center;
-             align-self: center;
-             color: #eee;
-             background-color: #222;
-         }
-
-         #tabs > *:hover {             
-             color: #fff;
-             background-color: #444;
-         }
-
-         #tabs > .addJavaFile {
-             padding-left: 10px;
-             padding-right: 10px;
-         }
-
-         .file.selected {
-             font-weight: bold;
-         }
-                  
-         #editor {
-             grid-area: editor;
-             top: 0;
-             right: 0;
-             bottom: 0;
-             left: 0;
-         }
-         
-         iframe {
-             grid-area: display;
-             width: 100%;
-             height: var(--height);
-             margin: 0;
-             padding: 0;
-             border-style: none;
-             transition-duration: 1s;
-         }
-
-         #console {
-             grid-area: console;
-             margin: 0;
-             padding: 5px;
-             overflow: scroll;
-             
-         }
-
-         #run {
-             position: fixed;
-             top: 5%;
-             right: 50%;
-             z-index: 999;
-             font-size: 2em;
-             animation-duration: 1s;
-         }
-	 
-         #share {
-             position: fixed;
-             top: 5%;
-             right: 45%;
-             z-index: 999;
-             font-size: 2em;
-             animation-duration: 1s;
-         }
-
-         #makeApp {
-             /* Disabling this button for now */
-             display: none;
-             position: fixed;
-             top: 5%;
-             right: 0;
-             z-index: 999;
-             font-size: 2em;
-         }
-
-         @keyframes run-required {
-             0% {
-                 transform: rotate(20deg);
-             }
-             50% {
-                 transform: rotate(-20deg);
-             }
-             100% {
-                 transform: rotate(0deg);                 
-             }
-         }
-
-         .hint {             
-             display: none;
-             position: absolute;
-
-             height: 1em;
-             right: 0;
-             bottom: -1em;
-             font-size: 0.5em;
-             background-color: rgb(200,200,200);
-             
-         }
-
-         button:hover .hint {
-             display: inline-block;
-         }
-
-         #files {             
-             box-sizing: border-box;
-             position: fixed;
-             width: 50%;
-             height: 80%;
-             left: 25%;
-             top: 5%;
-             padding: 5%;
-             font-size: 1.5em;
-             border-radius: 10%;
-             background-color: rgba(200,200,200,0.9);
-             z-index: 99999;
-             display: none;
-         }
-
-         #files * {
-             font-size: 1em;
-         }
-
-         #files .close {
-             position: absolute;
-             right: 5%;
-             top: 5%;
-         }
-
-         #files .delete {
-             margin: 0 2% 0;
-         }
-         
-        </style>
-    </head>
-    <body>
-        <button id='share'>
-            <i class="fas fa-share"></i>
-            <div class="hint">Share code</div>            
-        </button>      
-        <button id='run'>
-            <i class="fas fa-running"></i>
-            <i class="fas fa-arrow-right"></i>
-            <div class="hint">Run code</div>            
-        </button>
-        <button id='makeApp'>
-            <i class="fas fa-mobile-alt"></i>
-            <div class="hint">Make an app from code</div>
-        </button>
-        <main>
-            <section id="header">
-                <a target='_blank' href='javadoc/env3d/Env.html'>Read the Javadoc</a>
-                <span id="status">ready</span>
-            </section>
-            <section id="tabs">
-                <div class='addJavaFile'>+</div>
-            </section>
-            <section id="editor"></section>
-            <iframe src='env3d.html'></iframe>
-            <pre id="console"></pre>
-        </main>
-        
-        <div id='files'>
-            <button class='close'>X</button>
-            <div>New class name:</div>
-            <input id='filename'> <button class='add'>Add</button>
-            <ul>
+    <main>
+        <nav>
+            <ul class="ulNav">
+                <li class="liNav">
+                    <img src="images/c3d-logo-extend-invert.png" alt="c3d logo" class="logo">
+                </li>
+                <li class="liNav menu" style="margin-right: 3%">
+                    <button id="downloadCode" title="Download code" class="handleDownloadCode" onclick="openDownloadModal()">
+                        <span> Save 
+                        </span>
+                    </button>
+                </li>
+                <li class="liNav menu">
+                    <button id="loadCode" title="Load code" class="handleUploadCode">
+                        <span> Load
+                        </span>
+                    </button>
+                </li>
+                <li class=" liNav menu">
+                        <a href="#assets">Assets</a>
+                </li>
+                <li class="liNav menu">
+                    <a target="_blank" href="https://java.c3d.io/javadoc/env3d/Env.html">Docs</a>
+                </li>
+                <li class="liNav menu">
+                    <a id="active" href="#home">Home</a>
+                </li>
             </ul>
+        </nav>
+        <span id="status" style="display:none;">ready</span>
+        
+        <section id="tabs">
+            <div class="addJavaFile"> <i class="fas fa-plus" title="Add"
+                    style="font-size: 1.1em; margin-left: 50%;"></i></div>
+        </section>
+        
+        <section id="editor">      
+        </section>
+        <div id="outputContainer">
+            <iframe src="env3d.html" id="outputIframe"></iframe if>
         </div>
+        <button id="expandOutputToggle" title="Expand" onclick="expandOutputToggle()">
+            <span >
+                <i id="consoleArrows" style="font-size:24px; color: white;" class="fas fa-expand"></i>
+            </span>
+        </button>
+    </main>
+    
+    <div id="console"></div>
+     
+    <!-- Files -->
+    <div id="files">
+        <button class="close"><i class="fas fa-times"></i></button>
+        <div style="font-family: Nunito, sans-serif;">New class name:</div>
+        <input id="filename">
+        <button class="add">Add</button>
+        <hr />
+        <ul style="list-style-type:none;">
+        </ul>
+    </div>
 
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.1/ace.js'
-                type="text/javascript" charset="utf-8"></script>
+    <!-- The upload file Modal -->     
+    <div id="uploadModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span id="closeModal" class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="upload-container">
+                    <label for="file-input" id="file-input-label">Choose a C3DJava File</label>
+                    <input  type="file" id="file-input" accept="text/plain" />
+                    <div id="file-progress-container"><span id="file-progress-percent"></span>% read</div>
+                    <h3 id="uploadMsg"></h3>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <!--
+    <!-- The download file Modal -->     
+    <div id="downloadModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span id="closeDownloadModal" class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="upload-container">
+                    <input type="text" id="downloadFileName" placeholder="Enter a file name">
+                    <button title="download code" class="downloadCodeBtn" onclick="downloadCode()">
+                        <span> Download</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts and Libraries--> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.1/ace.js" type="text/javascript"
+        charset="utf-8"></script>
+    <!--
              transpiler service comes from the typescript playground
              https://www.typescriptlang.org/play/index.html
 
-             It's not documented how to actually do this in the browser,
+             It"s not documented how to actually do this in the browser,
              so have to look at lots of source code. At the end,
              found out by trail and error that including the
              transcriptServices.js will inject a ts object into the
@@ -242,8 +144,11 @@
              partially based on this blog post:
              http://vanilla-js.blogspot.com/2016/02/how-to-compile-typescript-in-browser.html 
            -->
-        <script src='typescriptServices.js'></script>
-        <script src='transpile.js'></script>
-        <script src='index.js'></script>
-    </body>
+    <script src="typescriptServices.js"></script>
+    <script src="transpile.js"></script>
+    <script src="index.js"></script>
+    <script src="./handleCode/handleCode.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+</body>
+
 </html>

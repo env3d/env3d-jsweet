@@ -1,0 +1,791 @@
+:root {
+    --height: 100vh;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #2f3129;
+    font-family: "Nunito", sans-serif;
+  }
+  
+  main {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: var(--height);
+    display: grid;
+    grid-template-columns: 50vw 50vw;
+    grid-template-rows: 8vh 5vh 87vh;
+    grid-template-areas: "navigation navigation" "tabs display" "editor display";
+  }
+  
+  #header {
+    grid-area: status;
+    align-self: center;
+    margin: 0;
+    padding-left: 1%;
+    font-family: "Nunito", sans-serif;
+  }
+  
+  #header a {
+    border-radius: 10%;
+    background-color: black;
+    color: white;
+  }
+  
+  #tabs {
+    overflow-y: hidden;
+    grid-area: tabs;
+    display: flex;
+    line-height: 100%;
+    width: 86%;
+    overflow-x: auto;
+  }
+  
+  #tabs>* {
+    margin: 0 0 0 0;
+    cursor: default;
+    text-align: center;
+    align-self: center;
+    color: rgb(184, 181, 181);
+    height: 5vh;
+    padding-top: 3%;
+    padding-bottom: 1%;
+    padding-left: 8px;
+    padding-right: 20px;
+    font-size: 16px;
+    font-family: "Nunito", sans-serif;
+  }
+  
+  #tabs>*:hover {
+    color: #fff;
+    background-color: #444;
+  }
+  
+  #tabs>.addJavaFile {
+    text-align: center;
+    width: 13px;
+    cursor: pointer;
+  }
+  
+  #tabs>.selected {
+    font-size: 16px;
+    background-color: #272822;
+    padding-right: 10px;
+    color: white;
+    font-weight: 600;
+  }
+  
+  #editor {
+    grid-area: editor;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    font-size: 14px;
+    font-weight: 500;
+    min-width: 50vw;
+    max-width: 90vw;
+    max-height: 87vh;
+    min-height: 87vh;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    /* resize: horizontal;
+    overflow: auto; */
+    z-index: 2;
+  }
+  
+  iframe {
+    grid-area: display;
+    width: 100%;
+    height: var(--height);
+    margin: 0;
+    padding: 0;
+    border-style: none;
+    transition-duration: 1s;
+  }
+  
+  #console {
+    grid-area: console;
+    padding: 5px;
+    height: 33vh;
+    width: 49vw;
+    margin-top: 65vh;
+    margin-left: 50vw;
+    overflow: auto;
+    background-color: white;
+    position: relative;
+    transition: opacity 1s ease-out;
+    z-index: 0;
+  }
+  
+  #run {
+    background-color: #1282ce;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.9em;
+    font-weight: bolder;
+    margin: 4px 2px;
+    cursor: pointer;
+    position: fixed;
+    top: 7%;
+    right: 50%;
+    z-index: 10;
+    border-radius: 5px;
+    height: 30px;
+    width: 80px;
+    animation-duration: 1s;
+  }
+  
+  #run:hover {
+    background-color: #106dac;
+  }
+  
+  #consoleToggle {
+    background-color: #272822;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.9em;
+    font-weight: bolder;
+    margin: 4px 2px;
+    cursor: pointer;
+    position: fixed;
+    top: 93.5%;
+    right: 0.3%;
+    z-index: 999;
+    border-radius: 5px;
+    height: 35px;
+    width: 40px;
+  }
+  
+  #consoleToggle:hover {
+    background-color: #0f0f0e;
+  }
+  
+  .displayConsole {
+    transition: opacity 1s ease-out;
+    opacity: 0;
+    height: 0;
+    display: none;
+  }
+  
+  .handleUploadCode {
+    background-color: #FC5185;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 30px;
+    margin-top: -5%;
+    font-size: 1vw;
+    min-width: 75px;
+  }
+  
+  .handleDownloadCode {
+    background-color: #1282ce;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 5px;
+    height: 30px;
+    margin-top: -5%;
+    font-size: 1vw;
+    min-width: 75px;
+  }
+  
+  .handleUploadCode:hover {
+    background-color: rgb(250, 250, 250);
+    color: rgb(251, 111, 153);
+  }
+  
+  .handleDownloadCode:hover {
+    background-color: rgb(250, 250, 250);
+    color: #328fce;
+  }
+  
+  #makeApp {
+    /* Disabling this button for now */
+    display: none;
+    position: fixed;
+    top: 5%;
+    right: 0;
+    z-index: 999;
+    font-size: 2em;
+  }
+  
+  @keyframes run-required {
+    0% {
+      transform: rotate(20deg);
+    }
+    50% {
+      transform: rotate(-20deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+  
+  .hint {
+    display: none;
+    position: absolute;
+    height: 1em;
+    right: 0;
+    bottom: -1em;
+    font-size: 0.5em;
+    background-color: rgb(200, 200, 200);
+  }
+  
+  button:hover .hint {
+    display: inline-block;
+  }
+  
+  /********New file widget********/
+  
+  #files {
+    box-sizing: border-box;
+    position: fixed;
+    width: 40%;
+    height: 90%;
+    left: 30%;
+    top: 5%;
+    padding: 4%;
+    font-size: 1.2em;
+    border-radius: 2%;
+    background-color: rgba(255, 255, 255);
+    z-index: 99999;
+    display: none;
+    overflow-x: auto;
+    text-align: center;
+  }
+  
+  #files * {
+    font-size: 1.5vw;
+  }
+  
+  #files .close {
+    position: absolute;
+    right: 4%;
+    top: 4%;
+    background-color: rgb(251, 111, 153);
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    padding-left: 1%;
+    padding-right: 1%;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: large;
+  }
+  
+  #files .delete {
+    background-color: #d9534f;
+    border-color: #d43f3a;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 4px 10px;
+    width: 30%;
+    border-radius: 5px;
+    margin-left: 5%;
+    margin: 10px 8% 10px;
+    width: -webkit-fill-available;
+  }
+  
+  #files .delete:hover {
+    background-color: #df231c;
+  }
+  
+  .add {
+    background-color: #337ab7;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 4px 10px;
+    width: 20%;
+    border-radius: 5px;
+  }
+  
+  .add:hover {
+    background-color: #1a6eb8;
+  }
+  
+  #javaClassName {
+    font-family: "Nunito", sans-serif;
+  }
+  
+  /*******************************************************/
+  /*******************************************************/
+  /******************Nav Bar Style************************/
+  /*******************************************************/
+  /*******************************************************/
+  
+  nav {
+    grid-area: navigation;
+  }
+  
+  .ulNav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #272822;
+    height: 7.6vh;
+    box-shadow: 0px 1px #3f3d3d;
+  }
+  
+  .liNav {
+    float: left;
+    width: 20%;
+  }
+  
+  .liNav a {
+    display: block;
+    color: rgb(184, 181, 181);
+    text-align: center;
+    text-decoration: none;
+  }
+  
+  .liNav a:hover:not(.active) {
+    color: white;
+    box-shadow: 0px 1px #51aeec;
+  }
+  
+  #active {
+    color: white;
+    box-shadow: 0px 2px #209cee;
+  }
+  
+  .menu {
+    float: right;
+    text-align: center;
+    width: 6%;
+    padding-right: 2%;
+    padding-top: 2vh;
+    font-weight: bolder;
+    font-size: 1.2vw;
+    font-family: "Nunito", sans-serif;
+  }
+  
+  .logo {
+    height: 5vh;
+    width: 70%;
+    padding: 3%;
+    margin-left: 20px;
+    animation: shootLogo 1s;
+    transition-timing-function: ease-out;
+    display: block;
+    /* filter: brightness(150%); */
+    /* filter: brightness(300%); */
+  }
+  
+  @keyframes shootLogo {
+    0% {
+      transform: rotate(10deg);
+    }
+    50% {
+      transform: rotate(-10deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+  
+  .star {
+    background-color: white;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    margin-top: 20px;
+    right: -10px;
+    animation: shoot 30s linear infinite;
+    opacity: 0.5;
+  }
+  
+  @keyframes shoot {
+    0% {
+      background-color: white;
+      left: 0px;
+      top: 0px;
+    }
+    25% {
+      background-color: #272822;
+      left: 200px;
+      top: 0px;
+    }
+    50% {
+      background-color: white;
+      left: 400px;
+      top: 0px;
+    }
+    75% {
+      background-color: #272822;
+      left: 800px;
+      top: 10px;
+    }
+    100% {
+      background-color: white;
+      left: 0px;
+      top: 0px;
+    }
+  }
+  
+  /*******************************************************/
+  /*******************************************************/
+  /**********************Loader***************************/
+  /*******************************************************/
+  /*******************************************************/
+  
+  #loader {
+    position: absolute;
+    left: 77%;
+    top: 55vh;
+    z-index: 1;
+    width: 90px;
+    height: 90px;
+    margin: -75px 0 0 -75px;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #209cee;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /*******************************************************/
+  /*******************************************************/
+  /***********************Modal***************************/
+  /*******************************************************/
+  /*******************************************************/
+  
+  /* The Modal (background) */
+  
+  .modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 11;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  
+  .modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 400px;
+    height: 180px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+  }
+  
+  /* Add Animation */
+  
+  @-webkit-keyframes animatetop {
+    from {
+      top: -300px;
+      opacity: 0
+    }
+    to {
+      top: 0;
+      opacity: 1
+    }
+  }
+  
+  @keyframes animatetop {
+    from {
+      top: -300px;
+      opacity: 0
+    }
+    to {
+      top: 0;
+      opacity: 1
+    }
+  }
+  
+  /* The Close Button */
+  
+  .close {
+    color: black;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover, .close:focus {
+    color: rgb(77, 67, 67);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .modal-header {
+    padding: 2px 16px;
+    background-color: #ffffff;
+    color: white;
+  }
+  
+  .modal-body {
+    padding: 2px 16px;
+  }
+  
+  .modal-footer {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+  }
+  
+  .modal-body input {
+    width: 100%;
+    margin: auto;
+  }
+  
+  /*******************************************************/
+  /*******************************************************/
+  /*****************File Upload***************************/
+  /*******************************************************/
+  /*******************************************************/
+  
+  #upload-container {
+    text-align: center;
+    margin: 40px auto;
+  }
+  
+  #file-input-label {
+    width: 200px;
+    cursor: pointer;
+    background-color: #0579c7;
+    color: white;
+    padding: 10px;
+    display: block;
+    margin: 0 auto;
+    font-size: 1em;
+    font-weight: bolder;
+    font-family: "Nunito", sans-serif;
+    border-radius: 8px;
+  }
+  
+  #file-input {
+    display: none;
+  }
+  
+  #file-progress-container {
+    display: none;
+    margin: 15px 0 0 0;
+  }
+  
+  #filename {
+    width: 60%;
+    padding: 5px 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  #contents {
+    margin: 15px 0 0 0;
+    display: none;
+    text-align: left;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    font-size: 13px;
+    max-height: 300px;
+    overflow: auto;
+  }
+  
+  #uploadMsg {
+    font-family: "Nunito", sans-serif;
+  }
+  
+  #downloadFileName {
+    width: 180px;
+    padding: 8px;
+    display: block;
+    margin: auto;
+    margin-bottom: 10px;
+    font-size: 1em;
+    font-weight: bolder;
+    font-family: "Nunito", sans-serif;
+  }
+  
+  .downloadCodeBtn {
+    width: 200px;
+    cursor: pointer;
+    background-color: #0579c7;
+    color: white;
+    padding: 10px;
+    display: block;
+    margin: 0 auto;
+    font-size: 1em;
+    font-weight: bolder;
+    font-family: "Nunito", sans-serif;
+    border-radius: 8px;
+  }
+  
+  /*******************************************************/
+  /*******************************************************/
+  /**********************Scrollbar************************/
+  /*******************************************************/
+  /*******************************************************/
+  
+  /* height */
+  
+  ::-webkit-scrollbar {
+    height: 5px;
+    width: 8px;
+  }
+  
+  /* Track */
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  
+  /*******************************************************/
+  /*******************************************************/
+  /**********************Draggable************************/
+  /*******************************************************/
+  /*******************************************************/
+  
+  .ui-resizable-se {
+    right: 3px !important;
+    bottom: 3px !important;
+    height: 25px !important;
+    width: 30px !important;
+    cursor: e-resize !important;
+    background-position: 3px 0px !important; 
+  }
+  
+  .ui-resizable-s {
+    display: none !important;
+  }
+  
+  .ui-resizable-e {
+    display: none !important;
+  }
+  
+  .ui-icon { 
+      zoom: 135%; 
+      -moz-transform: scale(1.25); 
+      -webkit-zoom: 1.25; 
+      -ms-zoom: 1.25;
+      background-image: url(images/resize.png) !important;
+      background-repeat: no-repeat !important;
+      background-size: 22px 27px !important;
+  }
+  
+  /*******************************************************/
+  /*******************************************************/
+  /**********************Editor errors********************/
+  /*******************************************************/
+  /*******************************************************/
+  .highlightError{
+    position:absolute;
+    background: red  ;
+    z-index:2;
+    opacity: 0.3;
+  }
+  
+  /*******************************************************/
+  /*******************************************************/
+  /**********************Expand Editor********************/
+  /*******************************************************/
+  /*******************************************************/
+  
+  #expandOutputToggle {
+    background-color: #696b68;
+    opacity: 0.8;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.9em;
+    font-weight: bolder;
+    margin: 4px 2px;
+    cursor: pointer;
+    position: fixed;
+    top: 8%;
+    right: 0.3%;
+    z-index: 999;
+    border-radius: 5px;
+    height: 35px;
+    width: 40px;
+  }
+  
+  #expandOutputToggle:hover {
+    background-color: #0f0f0e;
+  }
+  
+  .outputContainerPop {
+    z-index: 10;
+  }
+  
+  .expandOutputIframe {
+    margin-left: -100%;
+    width: 200%;
+    z-index: 10;
+    transition: all 0.2s linear;
+  }
+  
