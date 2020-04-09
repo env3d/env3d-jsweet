@@ -599,7 +599,7 @@ nav {
   margin: 40px auto;
 }
 
-#file-input-label {
+#reset, #file-input-label {
   width: 200px;
   cursor: pointer;
   background-color: #0579c7;
@@ -611,6 +611,7 @@ nav {
   font-weight: bolder;
   font-family: "Nunito", sans-serif;
   border-radius: 8px;
+  text-align: center;
 }
 
 #file-input {

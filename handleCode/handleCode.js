@@ -37,6 +37,11 @@ let downloadCode = () => {
 	}, 1000);
 }
 
+document.getElementById("reset").addEventListener('click', () => {
+    localStorage.clear();
+    window.location.reload();
+});
+
 // Get the upload modal
 var modal = document.getElementById("uploadModal");
 
