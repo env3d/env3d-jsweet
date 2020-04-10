@@ -269,23 +269,25 @@ document.getElementById('share').addEventListener('click', shareCode);
 function shareCode() {
     const shareURL = window.location.origin
         + window.location.pathname
-        + '?code='
+        + '#code='
         + btoa(localStorage.code).replace(/\+/g, '.').replace(/\=/g, '-').replace(/\//g, '_');
     
-    var response = $.get('https://share.c3d.io/api.php', {
+    var response = $.post('https://share.c3d.io/api.php', {
         action: "shorturl",
         format: "json",
         url: shareURL
     }, function(data) {
         // callback function that will deal with the server response
         // now do something with the data, for instance show new short URL:
+        console.log(data.shorturl);
         navigator.clipboard.writeText(data.shorturl).then(() => {
             alert(`Sharable URL ${data.shorturl} copied to clipboard`);
         });
     });
 
     // just in case the shortener is not working
-    response.fail( () => {
+    response.fail( (err) => {
+        console.log(err);
         navigator.clipboard.writeText(shareURL).then(() => {
             alert('Sharable URL copied to clipboard');
         });        
@@ -295,7 +297,8 @@ function shareCode() {
 window.addEventListener('load', function (evt) {
 
     // Check if the files are included in the URL
-    const queryString = window.location.search;
+    
+    const queryString = window.location.hash ? window.location.hash.substring(1) : window.location.search;    
     const urlParams = new URLSearchParams(queryString);
     const inputCode = urlParams.get("code");
     if (inputCode) {
