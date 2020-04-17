@@ -17,8 +17,11 @@
 <body onload="consoleToggle();">
 
     <button id='share' title="Share code">
-        <i class="fas fa-share"></i>
-        <!-- <div class="hint">Share code</div>             -->
+        <i class="fas fa-share-alt"></i>
+        <!-- <div class="hint">Share code</div>-->
+    </button> 
+    <button id='reset' title="Reset to default">
+        <i class="fa fa-exclamation-triangle"></i>
     </button> 
     <button id="run" title="Execute code">
         <i class="fas fa-play"></i>
@@ -31,7 +34,7 @@
     </button>
     <button id="consoleToggle" title="Console" onclick="consoleToggle()">
         <span style="margin-left: 10%;">
-            <i id="consoleArrows" style="font-size:24px; color: white;" class="fas"></i></span>
+            <i id="consoleArrows" class="fas"></i></span>
     </button>
     <main>
         <nav>
@@ -109,7 +112,6 @@
                     <div id="file-progress-container"><span id="file-progress-percent"></span>% read</div>
                     <h3 id="uploadMsg"></h3>
                 </div>
-		<label id="reset">Reset to default</label>
             </div>
         </div>
     </div>
@@ -126,6 +128,25 @@
                     <input type="text" id="downloadFileName" placeholder="Enter a file name">
                     <button title="download code" class="downloadCodeBtn" onclick="downloadCode()">
                         <span> Download</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reset Warning Modal -->
+    <div id="resetModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span id="closeResetModal" class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="reset-container">
+                    <br/>
+                    <h3 style="text-align: center;"><i style="color: red;" class="fa fa-exclamation-triangle"></i> Clicking on reset will delete all the code!</h3>
+                    <button title="download code" class="downloadCodeBtn" onclick="resetToDefault()">
+                        <span>Reset</span>
                     </button>
                 </div>
             </div>
