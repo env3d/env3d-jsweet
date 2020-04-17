@@ -155,7 +155,7 @@ iframe {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 0.9em;
+  font-size: 24px;
   font-weight: bolder;
   margin: 4px 2px;
   cursor: pointer;
@@ -599,7 +599,7 @@ nav {
   margin: 40px auto;
 }
 
-#reset, #file-input-label {
+#file-input-label {
   width: 200px;
   cursor: pointer;
   background-color: #0579c7;
@@ -756,7 +756,7 @@ nav {
 /*******************************************************/
 
 #expandOutputToggle {
-  background-color: #696b68;
+  background-color: #272822;
   opacity: 0.8;
   border: none;
   color: white;
@@ -798,15 +798,14 @@ nav {
 /*******************************************************/
 
 #share {
-  background-color: #696b68;
+  background-color: #272822;
   opacity: 0.9;
   border: none;
   color: white;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 0.9em;
-  font-weight: bolder;
+  font-size: 18px;
   margin: 4px 2px;
   cursor: pointer;
   position: fixed;
@@ -816,4 +815,32 @@ nav {
   border-radius: 5px;
   height: 35px;
   width: 40px;
+}
+
+#share:hover {
+  background-color: #0f0f0e;
+}
+
+#reset {
+  background-color: #272822;
+  opacity: 0.9;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  margin: 4px 2px;
+  cursor: pointer;
+  position: fixed;
+  top: 93.5%;
+  right: 46%;
+  z-index: 999;
+  border-radius: 5px;
+  height: 35px;
+  width: 40px;
+}
+
+#reset:hover {
+  background-color: #0f0f0e;
 }

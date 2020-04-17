@@ -37,11 +37,6 @@ let downloadCode = () => {
 	}, 1000);
 }
 
-document.getElementById("reset").addEventListener('click', () => {
-    localStorage.clear();
-    window.location.reload();
-});
-
 // Get the upload modal
 var modal = document.getElementById("uploadModal");
 
@@ -138,3 +133,26 @@ document.querySelector("#file-input").addEventListener('change', function () {
 	reader.readAsText(file);
 });
 
+
+//Handles the reset code
+
+// Get the reset modal
+var resetModal = document.getElementById("resetModal");
+
+// Get the <span> element that closes the modal
+var span = document.getElementById("closeResetModal");
+
+// When the user clicks the button, open the modal 
+document.getElementById("reset").onclick = function () {
+	resetModal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+	resetModal.style.display = "none";
+}
+
+const resetToDefault = () => {
+	localStorage.clear();
+	window.location.reload();
+}

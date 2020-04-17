@@ -423,10 +423,14 @@ let expandOutputToggle = () => {
         runBtn.style.display = "block";
         outputIframe.classList.remove('expandOutputIframe');
         outputContainer.classList.remove('outputContainerPop');
+        document.getElementById("reset").style.display = "block";
+        document.getElementById("share").style.display = "block";
     } else {
         runBtn.style.display = "none";
         outputIframe.classList.add('expandOutputIframe');
         outputContainer.classList.add('outputContainerPop');
+        document.getElementById("reset").style.display = "none";
+        document.getElementById("share").style.display = "none";
     }
 }
 
