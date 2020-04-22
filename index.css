@@ -21,6 +21,20 @@ main {
   grid-template-areas: "navigation navigation" "tabs display" "editor display";
 }
 
+@media only screen and (max-width: 600px) {
+  main {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: var(--height);
+    display: grid;
+    grid-template-columns: 100vw;
+    grid-template-rows: 100vh;
+    grid-template-areas: "display";
+  }
+}
+
 #header {
   grid-area: status;
   align-self: center;
@@ -139,7 +153,7 @@ iframe {
   right: 50%;
   z-index: 10;
   border-radius: 5px;
-  height: 30px;
+  height: 5vh;
   width: 80px;
   animation-duration: 1s;
 }
@@ -188,9 +202,9 @@ iframe {
   font-weight: 600;
   cursor: pointer;
   border-radius: 5px;
-  height: 30px;
+  height: 5vh;
   margin-top: -5%;
-  font-size: 1vw;
+  font-size: 12px;
   min-width: 75px;
 }
 
@@ -203,9 +217,9 @@ iframe {
   font-weight: 600;
   cursor: pointer;
   border-radius: 5px;
-  height: 30px;
+  height: 5vh;
   margin-top: -5%;
-  font-size: 1vw;
+  font-size: 12px;
   min-width: 75px;
 }
 
@@ -335,11 +349,7 @@ button:hover .hint {
   font-family: "Nunito", sans-serif;
 }
 
-/*******************************************************/
-/*******************************************************/
 /******************Nav Bar Style************************/
-/*******************************************************/
-/*******************************************************/
 
 nav {
   grid-area: navigation;
@@ -384,7 +394,7 @@ nav {
   padding-right: 2%;
   padding-top: 2vh;
   font-weight: bolder;
-  font-size: 1.2vw;
+  font-size: 15px;
   font-family: "Nunito", sans-serif;
 }
 
@@ -451,11 +461,7 @@ nav {
   }
 }
 
-/*******************************************************/
-/*******************************************************/
 /**********************Loader***************************/
-/*******************************************************/
-/*******************************************************/
 
 #loader {
   position: absolute;
@@ -480,11 +486,7 @@ nav {
   }
 }
 
-/*******************************************************/
-/*******************************************************/
 /***********************Modal***************************/
-/*******************************************************/
-/*******************************************************/
 
 /* The Modal (background) */
 
@@ -588,11 +590,7 @@ nav {
   margin: auto;
 }
 
-/*******************************************************/
-/*******************************************************/
 /*****************File Upload***************************/
-/*******************************************************/
-/*******************************************************/
 
 #upload-container {
   text-align: center;
@@ -673,11 +671,7 @@ nav {
   border-radius: 8px;
 }
 
-/*******************************************************/
-/*******************************************************/
 /**********************Scrollbar************************/
-/*******************************************************/
-/*******************************************************/
 
 /* height */
 
@@ -704,11 +698,7 @@ nav {
   background: #555;
 }
 
-/*******************************************************/
-/*******************************************************/
 /**********************Draggable************************/
-/*******************************************************/
-/*******************************************************/
 
 .ui-resizable-se {
   right: 3px !important;
@@ -716,7 +706,7 @@ nav {
   height: 25px !important;
   width: 30px !important;
   cursor: e-resize !important;
-  background-position: 3px 0px !important; 
+  background-position: 3px 0px !important;
 }
 
 .ui-resizable-s {
@@ -727,33 +717,26 @@ nav {
   display: none !important;
 }
 
-.ui-icon { 
-    zoom: 135%; 
-    -moz-transform: scale(1.25); 
-    -webkit-zoom: 1.25; 
-    -ms-zoom: 1.25;
-    background-image: url(images/resize.png) !important;
-    background-repeat: no-repeat !important;
-    background-size: 22px 27px !important;
+.ui-icon {
+  zoom: 135%;
+  -moz-transform: scale(1.25);
+  -webkit-zoom: 1.25;
+  -ms-zoom: 1.25;
+  background-image: url(images/resize.png) !important;
+  background-repeat: no-repeat !important;
+  background-size: 22px 27px !important;
 }
 
-/*******************************************************/
-/*******************************************************/
 /**********************Editor errors********************/
-/*******************************************************/
-/*******************************************************/
-.highlightError{
-  position:absolute;
-  background: red  ;
-  z-index:2;
+
+.highlightError {
+  position: absolute;
+  background: red;
+  z-index: 2;
   opacity: 0.3;
 }
 
-/*******************************************************/
-/*******************************************************/
 /**********************Expand Editor********************/
-/*******************************************************/
-/*******************************************************/
 
 #expandOutputToggle {
   background-color: #272822;
@@ -791,11 +774,7 @@ nav {
   transition: all 0.2s linear;
 }
 
-/*******************************************************/
-/*******************************************************/
 /**********************Expand Editor********************/
-/*******************************************************/
-/*******************************************************/
 
 #share {
   background-color: #272822;
@@ -843,4 +822,47 @@ nav {
 
 #reset:hover {
   background-color: #0f0f0e;
+}
+
+@media only screen and (max-width: 600px) {
+  #run {
+    display: none;
+  }
+  #reset {
+    display: none;
+  }
+  #share {
+    display: none;
+  }
+  #consoleToggle {
+    display: none;
+  }
+  #expandOutputToggle {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  #reset {
+    right: 45%;
+  }
+  #share {
+    right: 45%;
+  }
+  .menu {
+    padding-right: 5%;
+    padding-top: 1.8vh;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  #reset {
+    right: 43%;
+  }
+  #share {
+    right: 43%;
+  }
+  .menu {
+    padding-right: 8%;
+  }
 }
