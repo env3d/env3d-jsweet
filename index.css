@@ -892,7 +892,7 @@ nav {
   background-color: #e6e7e8;
   width: 40%;
   margin-left: 5%;
-  margin-top: 8%;
+  margin-top: 15vh;
   z-index: 999;
   position: relative;
   color: #2f3129;
@@ -956,8 +956,8 @@ nav {
   border-radius: 4px;
   cursor: pointer;
   background-color: #1282ce;
-  font-size: 14px;
-  font-weight: 800;
+  font-size: 16px;
+  font-weight: 700;
 }
 
 .formContainer form .button:hover {
@@ -988,7 +988,7 @@ nav {
   position: absolute;
   border: 1px solid #CFCFCF;
   width: 17px;
-  height: 17px;
+  /* height: 17px; */
   top: 0px;
   left: -14px;
 }
@@ -1000,7 +1000,7 @@ nav {
   content: '';
   position: absolute;
   width: 9px;
-  height: 5px;
+  /* height: 5px; */
   background-color: transparent;
   top: 4px;
   left: -10px;
@@ -1021,4 +1021,22 @@ nav {
 .formContainer .help-text p {
   text-align: center;
   font-size: 14px;
+}
+
+.googleButton {
+  width: 100%;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #fc5185;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.googleButton:hover {
+  background-color: rgb(250, 250, 250);
+  color: #fc5185;
 }
