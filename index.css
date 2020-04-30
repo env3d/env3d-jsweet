@@ -849,19 +849,23 @@ nav {
 
 @media only screen and (max-width: 600px) {
   #run {
-    display: none;
+    display: none !important;
   }
   #reset {
-    display: none;
+    display: none !important;
   }
   #share {
-    display: none;
+    display: none !important;
   }
   #consoleToggle {
-    display: none;
+    display: none !important;
   }
   #expandOutputToggle {
-    display: none;
+    display: none !important;
+  }
+  .formContainer {
+    width: 90% !important;
+    margin-top: 8vh !important;
   }
 }
 
