@@ -74,6 +74,7 @@ const passwordReset = () => {
       document.getElementById("resetPasswordInfo").style.display = "block";
       setTimeout(() => {
         document.getElementById("resetPasswordInfo").style.display = "none";
+        resetCodeModal.style.display = "none";
       }, 4000);
     })
     .catch(function (error) {
