@@ -8,7 +8,7 @@ const loginWithFirebase = () => {
     .then(function (succ) {})
     .catch(function (error) {
       const errorMessage = error.message;
-      alert(errorMessage + "Error!");
+      alert(errorMessage + " Error!");
     });
 };
 
@@ -22,7 +22,7 @@ const logOutWithFirebase = () => {
     })
     .catch(function (error) {
       const errorMessage = error.message;
-      alert(errorMessage + "Error!");
+      alert(errorMessage + " Error!");
     });
 };
 
@@ -59,5 +59,42 @@ const loginWithGoogle = () => {
       // The firebase.auth.AuthCredential type that was used.
       var credential = error.credential;
       // ...
+      alert(errorMessage);
     });
+};
+
+const passwordReset = () => {
+  var auth = firebase.auth();
+  const elements = document.getElementById("resetform").elements;
+  const email = elements[0].value;
+  console.log(elements);
+  auth
+    .sendPasswordResetEmail(email)
+    .then(function () {
+      document.getElementById("resetPasswordInfo").style.display = "block";
+      setTimeout(() => {
+        document.getElementById("resetPasswordInfo").style.display = "none";
+      }, 4000);
+    })
+    .catch(function (error) {
+      alert(error);
+    });
+};
+
+//Handles the password reset code modal
+
+// Get the reset modal
+var resetCodeModal = document.getElementById("passwordResetModal");
+
+// Get the <span> element that closes the modal
+var span = document.getElementById("closePasswordResetModal");
+
+// When the user clicks the button, open the modal
+document.getElementById("resetPassword").onclick = function () {
+  resetCodeModal.style.display = "block";
+};
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+  resetCodeModal.style.display = "none";
 };

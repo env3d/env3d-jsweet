@@ -151,7 +151,7 @@ iframe {
   top: 7%;
   right: 50%;
   z-index: 10;
-  border-radius: 5px;
+  border-radius: 4px;
   height: 5vh;
   width: 80px;
   animation-duration: 1s;
@@ -549,6 +549,10 @@ nav {
   animation-duration: 0.4s;
 }
 
+.reset-password-modal-content {
+  height: 220px;
+}
+
 /* Add Animation */
 
 @-webkit-keyframes animatetop {
@@ -627,7 +631,7 @@ nav {
   font-size: 1em;
   font-weight: bolder;
   font-family: "Nunito", sans-serif;
-  border-radius: 8px;
+  border-radius: 4px;
   text-align: center;
 }
 
@@ -687,7 +691,7 @@ nav {
   font-size: 1em;
   font-weight: bolder;
   font-family: "Nunito", sans-serif;
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 /**********************Scrollbar************************/
@@ -892,7 +896,7 @@ nav {
   background-color: #e6e7e8;
   width: 40%;
   margin-left: 5%;
-  margin-top: 15vh;
+  margin-top: 12vh;
   z-index: 999;
   position: relative;
   color: #2f3129;
@@ -937,7 +941,7 @@ nav {
   display: block !important;
 }
 
-.formContainer form .input {
+.formContainer form .input, .passwordResetInput {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -947,7 +951,7 @@ nav {
   box-sizing: border-box;
 }
 
-.formContainer form .button {
+.formContainer form .button, .passwordResetButton {
   width: 100%;
   color: white;
   padding: 14px 20px;
@@ -960,8 +964,13 @@ nav {
   font-weight: 700;
 }
 
-.formContainer form .button:hover {
+.formContainer form .button:hover, .passwordResetButton:hover {
   background-color: rgb(250, 250, 250);
+  color: #328fce;
+}
+
+.passwordResetButton:hover {
+  background-color: #e6e7e8;
   color: #328fce;
 }
 
@@ -1023,6 +1032,14 @@ nav {
   font-size: 14px;
 }
 
+.formContainer .help-text .join-info {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 800;
+  padding: 0;
+  color: #328fce;
+}
+
 .googleButton {
   width: 100%;
   color: white;
@@ -1039,4 +1056,10 @@ nav {
 .googleButton:hover {
   background-color: rgb(250, 250, 250);
   color: #fc5185;
+}
+
+#resetPasswordInfo {
+  color: #1282ce;
+  text-align: center;
+  display: none;
 }

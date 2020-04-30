@@ -249,6 +249,12 @@
         </h3>
         <h3 class="login-tab"><a href="#login-tab-content">Login</a></h3>
       </div>
+      <div class="help-text">
+        <!-- <p>By signing up, you agree to our</p> -->
+        <div class="join-info">
+          Sign up to use C3D Java version for free!
+        </div>
+      </div>
       <!--.tabs-->
       <div class="tabs-content">
         <div id="signup-tab-content" class="active">
@@ -287,7 +293,6 @@
           <button class="googleButton" onclick="loginWithGoogle()">
             Login with Google
           </button>
-          <!--.login-form-->
           <div class="help-text">
             <!-- <p>By signing up, you agree to our</p> -->
             <p>
@@ -310,16 +315,16 @@
         </div>
         <!--.signup-tab-content-->
 
+        <!--.login-form-->
         <div id="login-tab-content">
           <form
             class="login-form"
-            action=""
             method="post"
             onsubmit="loginWithFirebase(); return false;"
             id="loginForm"
           >
             <input
-              type="text"
+              type="email"
               class="input"
               id="user_login"
               autocomplete="off"
@@ -339,18 +344,59 @@
 
             <input type="submit" class="button" value="Login" />
           </form>
-          <!--.login-form-->
-          <!-- <div class="help-text">
-            <p><a href="#">Forget your password?</a></p>
-          </div> -->
-          <!--.help-text-->
+          <div class="help-text">
+            <!-- <p>By signing up, you agree to our</p> -->
+            <p>
+              <a href="javascript:;"
+                ><span id="resetPassword">Forget your password?</span></a
+              >
+            </p>
+          </div>
         </div>
-        <!--.login-tab-content-->
       </div>
       <!--.tabs-content-->
     </div>
     <!--.form-wrap-->
 
+    <!-- Password Reset Modal -->
+    <div id="passwordResetModal" class="modal" style="z-index: 999;">
+      <!-- Modal content -->
+      <div class="modal-content reset-password-modal-content">
+        <div class="modal-header">
+          <span id="closePasswordResetModal" class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+          <div id="password-reset-container">
+            <br /><br />
+            <form
+              method="post"
+              onsubmit="passwordReset(); return false;"
+              id="resetform"
+            >
+              <input
+                type="email"
+                class="passwordResetInput"
+                id="user_reset"
+                autocomplete="off"
+                placeholder="Enter your email"
+                required
+              />
+              <br />
+              <br />
+              <input
+                type="submit"
+                class="passwordResetButton"
+                value="Reset Password"
+              />
+              <h4 id="resetPasswordInfo">
+                A reset link was just sent to your email.
+              </h4>
+            </form>
+            <br />
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Scripts and Libraries-->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.1/ace.js"
