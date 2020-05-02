@@ -5,10 +5,33 @@ const loginWithFirebase = () => {
   firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
-    .then(function (succ) {})
+    .then(function (succ) {
+      if (succ.user.emailVerified) {
+        bringBackThings();
+        localStorage.setItem("uid", succ.user.uid);
+      } else {
+        verificationModal.style.display = "block";
+      }
+    })
     .catch(function (error) {
       const errorMessage = error.message;
       alert(errorMessage + " Error!");
+    });
+};
+
+const sendVerificationLink = () => {
+  var user = firebase.auth().currentUser;
+  user
+    .sendEmailVerification()
+    .then(function () {
+      document.getElementById("verificationLinkInfo").style.display = "block";
+      setTimeout(() => {
+        document.getElementById("verificationLinkInfo").style.display = "none";
+        verificationModal.style.display = "none";
+      }, 4000);
+    })
+    .catch(function (error) {
+      alert(error);
     });
 };
 
@@ -27,10 +50,10 @@ const logOutWithFirebase = () => {
 };
 
 firebase.auth().onAuthStateChanged(function (user) {
-  console.log("...");
+  // console.log("...");
   if (user) {
-    bringBackThings();
-    localStorage.setItem("uid", user.uid);
+    // bringBackThings();
+    // localStorage.setItem("uid", user.uid);
   }
 });
 
@@ -98,4 +121,19 @@ document.getElementById("resetPassword").onclick = function () {
 // When the user clicks on <span> (x), close the modal
 span.onclick = function () {
   resetCodeModal.style.display = "none";
+};
+
+//Handles the verification modal
+
+// Get the reset modal
+var verificationModal = document.getElementById("verificationModal");
+
+// Get the <span> element that closes the modal
+var verifySpan = document.getElementById("closeVerificationModal");
+
+// When the user clicks the button, open the modal
+//document.getElementById("verifyEmailButton").onclick = sendVerificationLink();
+// When the user clicks on <span> (x), close the modal
+verifySpan.onclick = function () {
+  verificationModal.style.display = "none";
 };

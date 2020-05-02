@@ -27,15 +27,12 @@
      https://firebase.google.com/docs/web/setup#available-libraries -->
 
     <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-auth.js"></script>
     <script>
       var firebaseConfig = {
         apiKey: "AIzaSyA1bpcO-VCNDyiHJn4hqh6SBzTJsycyUbA",
         authDomain: "c3d-java-dev.firebaseapp.com",
-        databaseURL: "https://c3d-java-dev.firebaseio.com",
         projectId: "c3d-java-dev",
-        storageBucket: "c3d-java-dev.appspot.com",
         messagingSenderId: "996838444425",
         appId: "1:996838444425:web:d0a183ab914ff516a3a558",
         measurementId: "G-VQZ2CX6FFB",
@@ -392,6 +389,38 @@
                 A reset link was just sent to your email.
               </h4>
             </form>
+            <br />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Verification Modal -->
+    <div id="verificationModal" class="modal" style="z-index: 999;">
+      <!-- Modal content -->
+      <div class="modal-content reset-password-modal-content">
+        <div class="modal-header">
+          <span id="closeVerificationModal" class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+          <div>
+            <br />
+            <h3
+              id="verificationLinkMainInfo"
+              style="display: block !important;"
+            >
+              Your email has not been verified yet!
+            </h3>
+            <button
+              id="verifyEmail"
+              class="verifyEmailButton"
+              onclick="sendVerificationLink()"
+            >
+              Verify email now!
+            </button>
+            <h4 id="verificationLinkInfo">
+              Please check your email for a verification link!
+            </h4>
             <br />
           </div>
         </div>

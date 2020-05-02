@@ -9,9 +9,20 @@ const signUpWithFirebase = () => {
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(function (succ) {})
+      .then(function (succ) {
+        var user = firebase.auth().currentUser;
+        console.log(user);
+        user
+          .sendEmailVerification()
+          .then(function () {
+            alert("Please check your email for a verification link!");
+          })
+          .catch(function (error) {
+            alert(error);
+          });
+      })
       .catch(function (error) {
-        alert(error + "Error!");
+        alert(error + " Error!");
       });
   }
 };

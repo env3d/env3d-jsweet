@@ -865,7 +865,7 @@ nav {
   }
   .formContainer {
     width: 90% !important;
-    margin-top: 8vh !important;
+    margin-top: 10vh !important;
   }
 }
 
@@ -955,7 +955,7 @@ nav {
   box-sizing: border-box;
 }
 
-.formContainer form .button, .passwordResetButton {
+.formContainer form .button, .passwordResetButton, .verifyEmailButton {
   width: 100%;
   color: white;
   padding: 14px 20px;
@@ -968,12 +968,12 @@ nav {
   font-weight: 700;
 }
 
-.formContainer form .button:hover, .passwordResetButton:hover {
+.formContainer form .button:hover {
   background-color: rgb(250, 250, 250);
   color: #328fce;
 }
 
-.passwordResetButton:hover {
+.passwordResetButton:hover, .verifyEmailButton:hover {
   background-color: #e6e7e8;
   color: #328fce;
 }
@@ -1062,7 +1062,7 @@ nav {
   color: #fc5185;
 }
 
-#resetPasswordInfo {
+#resetPasswordInfo, #verificationLinkInfo, #verificationLinkMainInfo {
   color: #1282ce;
   text-align: center;
   display: none;
