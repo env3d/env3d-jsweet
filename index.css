@@ -21,6 +21,20 @@ main {
   grid-template-areas: "navigation navigation" "tabs display" "editor display";
 }
 
+@media only screen and (max-width: 600px) {
+  main {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: var(--height);
+    display: grid;
+    grid-template-columns: 100vw;
+    grid-template-rows: 100vh;
+    grid-template-areas: "display";
+  }
+}
+
 #header {
   grid-area: status;
   align-self: center;
@@ -50,7 +64,6 @@ main {
   text-align: center;
   align-self: center;
   color: rgb(184, 181, 181);
-  ;
   height: 5vh;
   padding-top: 3%;
   padding-bottom: 1%;
@@ -129,7 +142,7 @@ iframe {
   color: white;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
+  /* display: inline-block; */
   font-size: 0.9em;
   font-weight: bolder;
   margin: 4px 2px;
@@ -138,8 +151,8 @@ iframe {
   top: 7%;
   right: 50%;
   z-index: 10;
-  border-radius: 5px;
-  height: 30px;
+  border-radius: 4px;
+  height: 5vh;
   width: 80px;
   animation-duration: 1s;
 }
@@ -188,9 +201,9 @@ iframe {
   font-weight: 600;
   cursor: pointer;
   border-radius: 5px;
-  height: 30px;
+  height: 5vh;
   margin-top: -5%;
-  font-size: 1vw;
+  font-size: 12px;
   min-width: 75px;
 }
 
@@ -203,15 +216,35 @@ iframe {
   font-weight: 600;
   cursor: pointer;
   border-radius: 5px;
-  height: 30px;
+  height: 5vh;
   margin-top: -5%;
-  font-size: 1vw;
+  font-size: 12px;
   min-width: 75px;
 }
 
 .handleUploadCode:hover {
   background-color: rgb(250, 250, 250);
   color: rgb(251, 111, 153);
+}
+
+.handleLogOut {
+  background-color: #7d6c6c;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 5px;
+  height: 5vh;
+  margin-top: -5%;
+  font-size: 12px;
+  min-width: 75px;
+}
+
+.handleLogOut:hover {
+  background-color: rgb(250, 250, 250);
+  color: #6c757d;
 }
 
 .handleDownloadCode:hover {
@@ -335,11 +368,7 @@ button:hover .hint {
   font-family: "Nunito", sans-serif;
 }
 
-/*******************************************************/
-/*******************************************************/
 /******************Nav Bar Style************************/
-/*******************************************************/
-/*******************************************************/
 
 nav {
   grid-area: navigation;
@@ -384,7 +413,7 @@ nav {
   padding-right: 2%;
   padding-top: 2vh;
   font-weight: bolder;
-  font-size: 1.2vw;
+  font-size: 15px;
   font-family: "Nunito", sans-serif;
 }
 
@@ -451,11 +480,7 @@ nav {
   }
 }
 
-/*******************************************************/
-/*******************************************************/
 /**********************Loader***************************/
-/*******************************************************/
-/*******************************************************/
 
 #loader {
   position: absolute;
@@ -480,11 +505,7 @@ nav {
   }
 }
 
-/*******************************************************/
-/*******************************************************/
 /***********************Modal***************************/
-/*******************************************************/
-/*******************************************************/
 
 /* The Modal (background) */
 
@@ -526,6 +547,10 @@ nav {
   -webkit-animation-duration: 0.4s;
   animation-name: animatetop;
   animation-duration: 0.4s;
+}
+
+.reset-password-modal-content {
+  height: 220px;
 }
 
 /* Add Animation */
@@ -588,11 +613,7 @@ nav {
   margin: auto;
 }
 
-/*******************************************************/
-/*******************************************************/
 /*****************File Upload***************************/
-/*******************************************************/
-/*******************************************************/
 
 #upload-container {
   text-align: center;
@@ -610,7 +631,7 @@ nav {
   font-size: 1em;
   font-weight: bolder;
   font-family: "Nunito", sans-serif;
-  border-radius: 8px;
+  border-radius: 4px;
   text-align: center;
 }
 
@@ -670,14 +691,10 @@ nav {
   font-size: 1em;
   font-weight: bolder;
   font-family: "Nunito", sans-serif;
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
-/*******************************************************/
-/*******************************************************/
 /**********************Scrollbar************************/
-/*******************************************************/
-/*******************************************************/
 
 /* height */
 
@@ -704,11 +721,7 @@ nav {
   background: #555;
 }
 
-/*******************************************************/
-/*******************************************************/
 /**********************Draggable************************/
-/*******************************************************/
-/*******************************************************/
 
 .ui-resizable-se {
   right: 3px !important;
@@ -716,7 +729,7 @@ nav {
   height: 25px !important;
   width: 30px !important;
   cursor: e-resize !important;
-  background-position: 3px 0px !important; 
+  background-position: 3px 0px !important;
 }
 
 .ui-resizable-s {
@@ -727,33 +740,26 @@ nav {
   display: none !important;
 }
 
-.ui-icon { 
-    zoom: 135%; 
-    -moz-transform: scale(1.25); 
-    -webkit-zoom: 1.25; 
-    -ms-zoom: 1.25;
-    background-image: url(images/resize.png) !important;
-    background-repeat: no-repeat !important;
-    background-size: 22px 27px !important;
+.ui-icon {
+  zoom: 135%;
+  -moz-transform: scale(1.25);
+  -webkit-zoom: 1.25;
+  -ms-zoom: 1.25;
+  background-image: url(images/resize.png) !important;
+  background-repeat: no-repeat !important;
+  background-size: 22px 27px !important;
 }
 
-/*******************************************************/
-/*******************************************************/
 /**********************Editor errors********************/
-/*******************************************************/
-/*******************************************************/
-.highlightError{
-  position:absolute;
-  background: red  ;
-  z-index:2;
+
+.highlightError {
+  position: absolute;
+  background: red;
+  z-index: 2;
   opacity: 0.3;
 }
 
-/*******************************************************/
-/*******************************************************/
 /**********************Expand Editor********************/
-/*******************************************************/
-/*******************************************************/
 
 #expandOutputToggle {
   background-color: #272822;
@@ -791,11 +797,7 @@ nav {
   transition: all 0.2s linear;
 }
 
-/*******************************************************/
-/*******************************************************/
 /**********************Expand Editor********************/
-/*******************************************************/
-/*******************************************************/
 
 #share {
   background-color: #272822;
@@ -843,4 +845,225 @@ nav {
 
 #reset:hover {
   background-color: #0f0f0e;
+}
+
+@media only screen and (max-width: 600px) {
+  #run {
+    display: none !important;
+  }
+  #reset {
+    display: none !important;
+  }
+  #share {
+    display: none !important;
+  }
+  #consoleToggle {
+    display: none !important;
+  }
+  #expandOutputToggle {
+    display: none !important;
+  }
+  .formContainer {
+    width: 90% !important;
+    margin-top: 10vh !important;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  #reset {
+    right: 45%;
+  }
+  #share {
+    right: 45%;
+  }
+  .menu {
+    padding-right: 5%;
+    padding-top: 1.8vh;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  #reset {
+    right: 43%;
+  }
+  #share {
+    right: 43%;
+  }
+  .menu {
+    padding-right: 8%;
+  }
+}
+
+/**********************Signup and Login Form********************/
+
+.formContainer {
+  background-color: #e6e7e8;
+  width: 40%;
+  margin-left: 5%;
+  margin-top: 12vh;
+  z-index: 999;
+  position: relative;
+  color: #2f3129;
+}
+
+.formContainer .tabs {
+  overflow: hidden;
+}
+
+.formContainer .tabs h3 {
+  float: left;
+  width: 50%;
+}
+
+.formContainer .tabs h3 a {
+  padding: 0.5em 0;
+  text-align: center;
+  font-weight: 400;
+  background-color: #cfcfcf;
+  display: block;
+  color: #2f3129;
+  text-decoration: none;
+  opacity: 0.7;
+}
+
+.formContainer .tabs h3 a.active {
+  background-color: #e6e7e8;
+  font-weight: bolder;
+  text-decoration: underline;
+  opacity: 1;
+}
+
+.formContainer .tabs-content {
+  padding: 1.5em;
+}
+
+.formContainer .tabs-content div[id$="tab-content"] {
+  display: none;
+}
+
+.formContainer .tabs-content .active {
+  display: block !important;
+}
+
+.formContainer form .input, .passwordResetInput {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.formContainer form .button, .passwordResetButton, .verifyEmailButton {
+  width: 100%;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #1282ce;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.formContainer form .button:hover {
+  background-color: rgb(250, 250, 250);
+  color: #328fce;
+}
+
+.passwordResetButton:hover, .verifyEmailButton:hover {
+  background-color: #e6e7e8;
+  color: #328fce;
+}
+
+.formContainer form .checkbox {
+  visibility: hidden;
+  padding: 20px;
+  margin: .5em 0 1.5em;
+}
+
+.formContainer form .checkbox:checked+label:after {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+  filter: alpha(opacity=100);
+  opacity: 1;
+}
+
+.formContainer form label[for] {
+  position: relative;
+  padding-left: 20px;
+  cursor: pointer;
+}
+
+.formContainer form label[for]:before {
+  content: '';
+  position: absolute;
+  border: 1px solid #CFCFCF;
+  width: 17px;
+  /* height: 17px; */
+  top: 0px;
+  left: -14px;
+}
+
+.formContainer form label[for]:after {
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  opacity: 0;
+  content: '';
+  position: absolute;
+  width: 9px;
+  /* height: 5px; */
+  background-color: transparent;
+  top: 4px;
+  left: -10px;
+  border: 3px solid #28A55F;
+  border-top: none;
+  border-right: none;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.formContainer .help-text {
+  margin-top: .6em;
+}
+
+.formContainer .help-text p {
+  text-align: center;
+  font-size: 14px;
+}
+
+.formContainer .help-text .join-info {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 800;
+  padding: 0;
+  color: #328fce;
+}
+
+.googleButton {
+  width: 100%;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #fc5185;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.googleButton:hover {
+  background-color: rgb(250, 250, 250);
+  color: #fc5185;
+}
+
+#resetPasswordInfo, #verificationLinkInfo, #verificationLinkMainInfo {
+  color: #1282ce;
+  text-align: center;
+  display: none;
 }
