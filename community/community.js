@@ -25,7 +25,9 @@ const fetchCreations = () => {
 
   creationsLoader.style.display = "block";
   const current = {
-    url: urlArr[0] + "//" + urlArr[2],
+    urlLocal: urlArr[0] + "//" + urlArr[2],
+    urlProd: "https://java.c3d.io/",
+    urlGit: "https://arsh-uppal.github.io/c3d-java-dev-community/",
   };
 
   fetch(hosts.heroku + "api/creations/all")
@@ -43,7 +45,7 @@ const fetchCreations = () => {
           iframeDiv.className = "iframeContainer";
 
           const iframe = document.createElement("iframe");
-          iframe.src = current.url + "#" + creation.creationCode;
+          iframe.src = current.urlGit + "#" + creation.creationCode;
           iframe.title = "Output";
           iframe.className = "iframeOutput";
           iframe.height = "100%";
@@ -59,7 +61,7 @@ const fetchCreations = () => {
           const loadCreation = document.createElement("a");
           loadCreation.className = "loadCreation";
           loadCreation.innerHTML = "load code";
-          loadCreation.href = current.url + "#" + creation.creationCode;
+          loadCreation.href = current.urlGit + "#" + creation.creationCode;
           loadCreation.target = "_blank";
           infoDiv.appendChild(infoSpan);
           infoDiv.appendChild(loadCreation);
