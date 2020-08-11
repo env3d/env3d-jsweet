@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Community</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="../index.css" />
+    <link rel="stylesheet" type="text/css" href="./community.css" />
+    <script src="./community.js"></script>
+  </head>
+  <body onload="fetchCreations()">
+    <div>
+      <nav>
+        <ul class="ulNav">
+          <li class="liNav">
+            <img
+              src="../images/c3d-logo-extend-invert.png"
+              alt="c3d logo"
+              class="logo"
+            />
+          </li>
+          <span id="navItems">
+            <li class="liNav menu" style="margin-right: 3%;">
+              <button
+                id="logOut"
+                title="Log out"
+                class="handleLogOut"
+                onclick="logOutWithFirebase()"
+              >
+                <span> Log Out </span>
+              </button>
+            </li>
+            <li class="liNav menu">
+              <a id="active" href="#">Community</a>
+            </li>
+            <li class="liNav menu">
+              <a
+                target="_blank"
+                href="https://java.c3d.io/javadoc/env3d/Env.html"
+                >Docs</a
+              >
+            </li>
+            <li class="liNav menu">
+              <a href="../">Home</a>
+            </li>
+          </span>
+        </ul>
+      </nav>
+      <div class="search">
+        <input type="text" class="searchBox" placeholder="search java c3d" />
+        <button type="submit" class="searchBtn" onclick="showSnackBar()">
+          <i class="fa fa-search"></i>
+        </button>
+      </div>
+      <div>
+        <div class="flex-container" id="cardsContainer">
+          <div id="creationsLoader"></div>
+          <span style="color: white; display: none;" id="noDataErr"
+            >No Data</span
+          >
+        </div>
+      </div>
+    </div>
+    <!-- The actual snackbar -->
+    <div id="snackbar">This functionality will be available soon..</div>
+  </body>
+</html>

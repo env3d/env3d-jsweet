@@ -112,7 +112,7 @@ main {
   z-index: 2;
 }
 
-iframe {
+.iframeC {
   grid-area: display;
   width: 100%;
   height: var(--height);
@@ -389,6 +389,12 @@ nav {
   width: 20%;
 }
 
+@media only screen and (max-width: 700px) {
+  .liNav {
+    width: 40%;
+  }
+}
+
 .liNav a {
   display: block;
   color: rgb(184, 181, 181);
@@ -507,6 +513,31 @@ nav {
 
 /***********************Modal***************************/
 
+#loaderShareCreation {
+  position: relative;
+  left: 45%;
+  top: 10px;
+  z-index: 1;
+  width: 5px;
+  height: 5px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #209cee;
+  animation: spin 2s linear infinite;
+  display: none;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/***********************Modal***************************/
+
 /* The Modal (background) */
 
 .modal {
@@ -541,7 +572,7 @@ nav {
   padding: 0;
   border: 1px solid #888;
   width: 400px;
-  height: 180px;
+  height: 250px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   -webkit-animation-name: animatetop;
   -webkit-animation-duration: 0.4s;
@@ -879,6 +910,7 @@ nav {
   .menu {
     padding-right: 5%;
     padding-top: 1.8vh;
+    font-size: 13px;
   }
 }
 
@@ -891,7 +923,21 @@ nav {
   }
   .menu {
     padding-right: 8%;
+    font-size: 11px;
   }
+}
+
+/**********************Signup and Login Form********************/
+
+#creationNameText {
+  width: 180px;
+  padding: 8px;
+  display: block;
+  margin: auto;
+  margin-bottom: 10px;
+  font-size: 1em;
+  font-weight: bolder;
+  font-family: "Nunito", sans-serif;
 }
 
 /**********************Signup and Login Form********************/
