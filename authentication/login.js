@@ -11,7 +11,10 @@ const loginWithFirebase = () => {
       user = succ.user;
       if (succ.user.emailVerified) {
         bringBackThings();
+        console.log(succ.user);
         localStorage.setItem("uid", succ.user.uid);
+        localStorage.setItem("userEmail", succ.user.email);
+        localStorage.setItem("userName", succ.user.displayName);
       } else {
         verificationModal.style.display = "block";
       }
@@ -53,7 +56,6 @@ const logOutWithFirebase = () => {
 };
 
 firebase.auth().onAuthStateChanged(function (user) {
-  // console.log("...");
   if (user) {
     // bringBackThings();
     // localStorage.setItem("uid", user.uid);
@@ -71,6 +73,8 @@ const loginWithGoogle = () => {
       if (user) {
         bringBackThings();
         localStorage.setItem("uid", user.uid);
+        localStorage.setItem("userEmail", user.email);
+        localStorage.setItem("userName", user.displayName);
       }
       // ...
     })
@@ -91,7 +95,6 @@ const passwordReset = () => {
   var auth = firebase.auth();
   const elements = document.getElementById("resetform").elements;
   const email = elements[0].value;
-  console.log(elements);
   auth
     .sendPasswordResetEmail(email)
     .then(function () {

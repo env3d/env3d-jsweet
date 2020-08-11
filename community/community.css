@@ -1,0 +1,205 @@
+.search {
+    width: 50%;
+    position: relative;
+    display: flex;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.searchBox {
+    width: 100%;
+    border: 3px solid #272822;
+    border-right: none;
+    padding: 5px 8px;
+    height: 30px;
+    border-radius: 10px 0 0 10px;
+    outline: none;
+    color: #9DBFAF;
+    font-size: 14px;
+}
+
+.searchBox:focus {
+    color: #272822;
+}
+
+.searchBtn {
+    width: 50px;
+    height: 46px;
+    border: 1px solid #272822;
+    background: white;
+    text-align: center;
+    color: #272822;
+    border-radius: 0 10px 10px 0;
+    cursor: pointer;
+    font-size: 22px;
+}
+
+/* Community editors */
+
+.flex-container {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.flex-container>div {
+    background-color: white;
+    margin: 10px;
+    border-radius: 3%;
+}
+
+.card {
+    padding: 5px;
+}
+
+.infoContainer {
+    padding: 13px;
+    padding-top: 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 12px;
+    text-align: center;
+}
+
+.loadCreation {
+    display: block;
+    background: #337ab7;
+    padding: 4%;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: 500;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 10px;
+    margin-top: 15px;
+    margin-left: 5%;
+}
+
+.loadCreation:hover {
+    background-color: #1a6eb8
+}
+
+.iframeContainer {
+    height: 200px;
+    width: 250px;
+}
+
+.iframeOutput {
+    border-radius: 3%;
+}
+
+/* Snackbar */
+
+/* Reference - https://www.w3schools.com/howto/howto_js_snackbar.asp */
+
+#snackbar {
+    visibility: hidden;
+    /* Hidden by default. Visible on click */
+    min-width: 250px;
+    /* Set a default minimum width */
+    margin-left: -125px;
+    /* Divide value of min-width by 2 */
+    background-color: #272822;
+    /* Black background color */
+    color: #fff;
+    /* White text color */
+    text-align: center;
+    /* Centered text */
+    border-radius: 2px;
+    /* Rounded borders */
+    padding: 16px;
+    /* Padding */
+    position: fixed;
+    /* Sit on top of the screen */
+    z-index: 1;
+    /* Add a z-index if needed */
+    left: 50%;
+    /* Center the snackbar */
+    bottom: 30px;
+    /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+
+#snackbar.show {
+    visibility: visible;
+    /* Show the snackbar */
+    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+    However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+
+@-webkit-keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+
+/**********************Creations Loader***************************/
+
+#creationsLoader {
+    position: relative;
+    z-index: 1;
+    width: 90px;
+    height: 90px;
+    margin-top: 100px;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #209cee;
+    animation: spin 2s linear infinite;
+    display: none;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

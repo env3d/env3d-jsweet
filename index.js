@@ -296,9 +296,16 @@ window.addEventListener("keydown", function (evt) {
   }
 });
 
+/****************************************
+ *          Share Code Starts
+ ****************************************/
+
 document.getElementById("share").addEventListener("click", shareCode);
+let shareURL = null;
 function shareCode() {
-  const shareURL =
+  shareModal.style.display = "block";
+
+  shareURL =
     window.location.origin +
     window.location.pathname +
     "#code=" +
@@ -306,7 +313,6 @@ function shareCode() {
       .replace(/\+/g, ".")
       .replace(/\=/g, "-")
       .replace(/\//g, "_");
-
   var response = $.post(
     "https://share.c3d.io/api.php",
     {
@@ -317,9 +323,9 @@ function shareCode() {
     function (data) {
       // callback function that will deal with the server response
       // now do something with the data, for instance show new short URL:
-      console.log(data.shorturl);
       navigator.clipboard.writeText(data.shorturl).then(() => {
-        alert(`Sharable URL ${data.shorturl} copied to clipboard`);
+        //alert(`Sharable URL ${data.shorturl} copied to clipboard`);
+        document.getElementById("shareURL").innerHTML = data.shorturl;
       });
     }
   );
@@ -332,6 +338,92 @@ function shareCode() {
     });
   });
 }
+
+// Get the share modal
+var shareModal = document.getElementById("shareModal");
+
+// Get the <span> element that closes the modal
+var span = document.getElementById("closeShareModal");
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+  shareModal.style.display = "none";
+};
+
+document.getElementById("copyLink").addEventListener("click", copyShareLink);
+
+function copyShareLink() {
+  const url = document.getElementById("shareURL").innerHTML;
+  navigator.clipboard.writeText(url).then(() => {
+    alert(`Sharable URL ${url} copied to clipboard`);
+  });
+}
+
+const shareCreation = () => {
+  successShare.style.display = "none";
+  const creationName = document.getElementById("creationNameText").value;
+  if (creationName.length < 1) {
+    creationNameErr.style.display = "block";
+  } else {
+    creationNameErr.style.display = "none";
+
+    const userEmail = localStorage.getItem("userEmail");
+    const userName = localStorage.getItem("userName");
+
+    if (shareURL && userEmail && userName) {
+      locStorageErr.style.display = "none";
+      loaderShareCreation.style.display = "block";
+
+      const creationCode = shareURL.split("#")[1];
+
+      const hosts = {
+        heroku: "https://c3d-backend.herokuapp.com/",
+        local: "http://localhost:3000/",
+      };
+
+      const params = {
+        userEmail: userEmail,
+        userName: userName,
+        creationName: creationName,
+        creationCode: creationCode,
+      };
+
+      let formBody = [];
+      for (var property in params) {
+        var encodedKey = encodeURIComponent(property);
+        var encodedValue = encodeURIComponent(params[property]);
+        formBody.push(encodedKey + "=" + encodedValue);
+      }
+      formBody = formBody.join("&");
+
+      fetch(hosts.heroku + "api/creations/add", {
+        method: "POST",
+        body: formBody,
+        headers: { "Content-type": "application/x-www-form-urlencoded" },
+      })
+        .then((response) => {
+          loaderShareCreation.style.display = "none";
+          if (response.status !== 200) {
+            locStorageErr.style.display = "block";
+          }
+          return response.json();
+        })
+        .then((json) => {
+          if (json === "success") {
+            successShare.style.display = "block";
+          } else {
+            locStorageErr.style.display = "block";
+          }
+        });
+    } else {
+      locStorageErr.style.display = "block";
+    }
+  }
+};
+
+/****************************************
+ *          Share Code Ends
+ ****************************************/
 
 window.addEventListener("load", function (evt) {
   // Check if the files are included in the URL
@@ -456,6 +548,13 @@ window["editor"] = editor;
 
 // Toggle Console
 let init = () => {
+  if (
+    !localStorage.getItem("uid") ||
+    !localStorage.getItem("userEmail") ||
+    !localStorage.getItem("userName")
+  ) {
+    logOutWithFirebase();
+  }
   let consoleArrows = document.getElementById("consoleArrows");
   document.getElementById("console").classList.toggle("displayConsole");
   if (consoleArrows.className == "fa fa-angle-double-up")
