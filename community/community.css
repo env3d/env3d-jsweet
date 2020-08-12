@@ -203,3 +203,37 @@
         transform: rotate(360deg);
     }
 }
+
+/**********************Creations Loader***************************/
+
+.slackFloat {
+    position: fixed;
+    width: 180px;
+    height: 50px;
+    bottom: 20px;
+    right: 20px;
+    background-color: white;
+    color: #272822;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 2px;
+}
+
+.slackFloatItems {
+    display: flex;
+}
+
+.slackFloatInfo {
+    margin-top: 16px;
+}
+
+/**********************Clap Btn***************************/
+
+.clapBtn {
+    width: 40px;
+    height: 40px;
+    margin-left: 40%;
+    margin-top: 2%;
+    margin-bottom: 3%;
+}
