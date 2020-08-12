@@ -63,6 +63,11 @@ const fetchCreations = () => {
           loadCreation.innerHTML = "load code";
           loadCreation.href = current.urlGit + "#" + creation.creationCode;
           loadCreation.target = "_blank";
+          const clapBtn = document.createElement("applause-button");
+          clapBtn.className = "clapBtn";
+          clapBtn.color = "#337ab7";
+
+          infoDiv.appendChild(clapBtn);
           infoDiv.appendChild(infoSpan);
           infoDiv.appendChild(loadCreation);
 

@@ -14,7 +14,8 @@ const loginWithFirebase = () => {
         console.log(succ.user);
         localStorage.setItem("uid", succ.user.uid);
         localStorage.setItem("userEmail", succ.user.email);
-        localStorage.setItem("userName", succ.user.displayName);
+        const name = succ.user.email.split("@")[0];
+        localStorage.setItem("userName", name);
       } else {
         verificationModal.style.display = "block";
       }
@@ -48,6 +49,8 @@ const logOutWithFirebase = () => {
     .then(function () {
       expungeThings();
       localStorage.removeItem("uid");
+      localStorage.removeItem("userEmail");
+      localStorage.removeItem("userName");
     })
     .catch(function (error) {
       const errorMessage = error.message;

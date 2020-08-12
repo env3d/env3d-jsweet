@@ -10,6 +10,15 @@
     />
     <link rel="stylesheet" type="text/css" href="../index.css" />
     <link rel="stylesheet" type="text/css" href="./community.css" />
+
+    <!-- https://github.com/ColinEberhardt/applause-button -->
+    <!-- https://github.com/ColinEberhardt/applause-button/blob/master/LICENSE -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/applause-button/dist/applause-button.css"
+    />
+    <script src="https://unpkg.com/applause-button/dist/applause-button.js"></script>
+
     <script src="./community.js"></script>
   </head>
   <body onload="fetchCreations()">
@@ -25,12 +34,7 @@
           </li>
           <span id="navItems">
             <li class="liNav menu" style="margin-right: 3%;">
-              <button
-                id="logOut"
-                title="Log out"
-                class="handleLogOut"
-                onclick="logOutWithFirebase()"
-              >
+              <button id="logOut" title="Log out" class="handleLogOut">
                 <span> Log Out </span>
               </button>
             </li>
@@ -59,6 +63,12 @@
       <div>
         <div class="flex-container" id="cardsContainer">
           <div id="creationsLoader"></div>
+          <!-- <div class="card">
+            <div class="iframeContainer"></div>
+            <div class="infoContainer">
+              <a class="loadCreation">Load</a>
+            </div>
+          </div> -->
           <span style="color: white; display: none;" id="noDataErr"
             >No Data</span
           >
@@ -67,5 +77,15 @@
     </div>
     <!-- The actual snackbar -->
     <div id="snackbar">This functionality will be available soon..</div>
+    <a href="#" class="slackFloat">
+      <div class="slackFloatItems">
+        <img
+          alt="Qries"
+          src="../images/Slack_Mark_Web.png"
+          width="auto"
+          height="50"
+        /><span class="slackFloatInfo">Join discussion</span>
+      </div>
+    </a>
   </body>
 </html>
