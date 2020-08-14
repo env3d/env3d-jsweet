@@ -45,7 +45,7 @@ const fetchCreations = () => {
           iframeDiv.className = "iframeContainer";
 
           const iframe = document.createElement("iframe");
-          iframe.src = current.urlGit + "#" + creation.creationCode;
+          iframe.src = current.urlProd + "#" + creation.creationCode;
           iframe.title = "Output";
           iframe.className = "iframeOutput";
           iframe.height = "100%";
@@ -61,7 +61,7 @@ const fetchCreations = () => {
           const loadCreation = document.createElement("a");
           loadCreation.className = "loadCreation";
           loadCreation.innerHTML = "load code";
-          loadCreation.href = current.urlGit + "#" + creation.creationCode;
+          loadCreation.href = current.urlProd + "#" + creation.creationCode;
           loadCreation.target = "_blank";
           const clapBtn = document.createElement("applause-button");
           clapBtn.className = "clapBtn";
